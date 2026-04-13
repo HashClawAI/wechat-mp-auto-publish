@@ -15,7 +15,7 @@ Scripts and runbooks for **WeChat Official Account (微信公众号)** draft/pub
 ## Agent / Skill workflow (主题 → 故事 → 配图 → 草稿)
 
 Cursor 个人 skill：`~/.cursor/skills/wechat-mp-auto-publish/`（含 **`pipeline.md`** 分步清单）。  
-Agent 按该清单：可选调用你的「写作」skill → 本地保存配图 → 下面两条命令上传 → `publish.mjs` 写入草稿箱。
+Agent 按该清单：**写作**默认对齐仓库 [HashClawAI/write-skill-academic-story](https://github.com/HashClawAI/write-skill-academic-story)（请把其中的 `SKILL.md` 推到该仓库，或 clone 到 `~/.cursor/skills/write-skill-academic-story/`）→ 本地保存配图 → 下面两条命令上传 → `publish.mjs` 写入草稿箱。
 
 ## Quick start (local)
 
