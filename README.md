@@ -45,6 +45,14 @@ To call `draft/add`, set `DRY_RUN=0`, provide `WECHAT_THUMB_MEDIA_ID`, title, an
 
 Use **workflow_dispatch** and GitHub **Environments** with required reviewers before any step that publishes. Store `WECHAT_APP_ID` and `WECHAT_APP_SECRET` as repository or environment secrets.
 
+## 草稿 API 能填什么、不能填什么
+
+`draft/add` 官方字段主要包括：`title`、`author`（≤16 字）、`digest`（单图文摘要）、`content`、`content_source_url`（阅读原文）、`thumb_media_id`、`need_open_comment`、`only_fans_can_comment`，以及可选的封面裁剪 `pic_crop_235_1`、`pic_crop_1_1`。见 [新增草稿](https://developers.weixin.qq.com/doc/subscription/api/draftbox/draftmanage/api_draft_add.html)。
+
+在 **`.env`** 里对应：`WECHAT_ARTICLE_*`、`WECHAT_CONTENT_SOURCE_URL`、`WECHAT_THUMB_MEDIA_ID`、`WECHAT_NEED_OPEN_COMMENT`、`WECHAT_ONLY_FANS_CAN_COMMENT`、`WECHAT_PIC_CROP_*`（见 `.env.example`）。
+
+**当前接口文档中未见**「原创声明」「转载来源」「合集」等后台编辑器里的部分选项；这些一般需在 **公众平台网页 → 打开该草稿再手动勾选**。自动化只能把能传的元数据先填满，减少你在后台补字段的时间。
+
 ## Disclaimer
 
 WeChat permissions and JSON fields change by account type and platform policy. Confirm each endpoint against the current official documentation before relying on automation in production.

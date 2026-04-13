@@ -66,6 +66,49 @@ function boolEnv(name, defaultValue = false) {
   return defaultValue;
 }
 
+function trimEnv(name) {
+  const v = process.env[name];
+  if (v === undefined || v === null) return "";
+  return String(v).trim();
+}
+
+/**
+ * Build draft article object per MP draft/add (news).
+ * @see https://developers.weixin.qq.com/doc/subscription/api/draftbox/draftmanage/api_draft_add.html
+ * Optional keys are omitted when empty so WeChat applies defaults (e.g. digest from body).
+ */
+function buildNewsArticle() {
+  const title = trimEnv("WECHAT_ARTICLE_TITLE") || "Untitled";
+  const content = trimEnv("WECHAT_ARTICLE_CONTENT") || "<p></p>";
+  const thumb = trimEnv("WECHAT_THUMB_MEDIA_ID");
+
+  const article = {
+    article_type: "news",
+    title,
+    content,
+    thumb_media_id: thumb,
+    need_open_comment: Number(process.env.WECHAT_NEED_OPEN_COMMENT || 0),
+    only_fans_can_comment: Number(process.env.WECHAT_ONLY_FANS_CAN_COMMENT || 0),
+  };
+
+  const author = trimEnv("WECHAT_ARTICLE_AUTHOR");
+  if (author) article.author = author;
+
+  const digest = trimEnv("WECHAT_ARTICLE_DIGEST");
+  if (digest) article.digest = digest;
+
+  const source = trimEnv("WECHAT_CONTENT_SOURCE_URL");
+  if (source) article.content_source_url = source;
+
+  const crop235 = trimEnv("WECHAT_PIC_CROP_235_1");
+  if (crop235) article.pic_crop_235_1 = crop235;
+
+  const crop11 = trimEnv("WECHAT_PIC_CROP_1_1");
+  if (crop11) article.pic_crop_1_1 = crop11;
+
+  return article;
+}
+
 async function main() {
   loadDotEnv();
 
@@ -80,18 +123,7 @@ async function main() {
   const token = await getStableAccessToken(appid, secret);
   console.error(`access_token acquired (length ${token.length})`);
 
-  const article = {
-    article_type: "news",
-    title: process.env.WECHAT_ARTICLE_TITLE || "Untitled",
-    author: process.env.WECHAT_ARTICLE_AUTHOR || "",
-    digest: process.env.WECHAT_ARTICLE_DIGEST || "",
-    content: process.env.WECHAT_ARTICLE_CONTENT || "<p></p>",
-    content_source_url: process.env.WECHAT_CONTENT_SOURCE_URL || "",
-    thumb_media_id: process.env.WECHAT_THUMB_MEDIA_ID || "",
-    need_open_comment: Number(process.env.WECHAT_NEED_OPEN_COMMENT || 0),
-    only_fans_can_comment: Number(process.env.WECHAT_ONLY_FANS_CAN_COMMENT || 0),
-  };
-
+  const article = buildNewsArticle();
   const body = { articles: [article] };
 
   if (dryRun) {
@@ -102,6 +134,10 @@ async function main() {
   if (!article.thumb_media_id) {
     console.error("DRY_RUN=0 requires WECHAT_THUMB_MEDIA_ID for news drafts.");
     process.exit(1);
+  }
+
+  if (!dryRun && article.author === undefined) {
+    console.error("Hint: set WECHAT_ARTICLE_AUTHOR in .env (≤16字) so 作者 is filled in the draft.");
   }
 
   const url = `https://api.weixin.qq.com/cgi-bin/draft/add?access_token=${encodeURIComponent(token)}`;
