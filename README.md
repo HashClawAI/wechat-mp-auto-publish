@@ -1,5 +1,7 @@
 # wechat-mp-auto-publish
 
+**GitHub:** [HashClawAI/wechat-mp-auto-publish](https://github.com/HashClawAI/wechat-mp-auto-publish)
+
 Scripts and runbooks for **WeChat Official Account (微信公众号)** draft/publish automation. The Cursor Agent skill that drives planning and debugging lives in:
 
 `~/.cursor/skills/wechat-mp-auto-publish/SKILL.md`
