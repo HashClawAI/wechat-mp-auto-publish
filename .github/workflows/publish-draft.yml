@@ -1,0 +1,41 @@
+# Manual-only: set repository secrets WECHAT_APP_ID, WECHAT_APP_SECRET.
+# For DRY_RUN=false, also set WECHAT_THUMB_MEDIA_ID and fill inputs.
+name: publish-draft
+
+on:
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "true = token + print payload only; false = call draft/add"
+        required: true
+        default: "true"
+        type: choice
+        options:
+          - "true"
+          - "false"
+      article_title:
+        description: "Draft title"
+        required: true
+        default: "CI draft"
+      article_content:
+        description: "HTML body (MP image URL rules apply)"
+        required: true
+        default: "<p>CI 正文</p>"
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: Publish script
+        env:
+          WECHAT_APP_ID: ${{ secrets.WECHAT_APP_ID }}
+          WECHAT_APP_SECRET: ${{ secrets.WECHAT_APP_SECRET }}
+          WECHAT_THUMB_MEDIA_ID: ${{ secrets.WECHAT_THUMB_MEDIA_ID }}
+          WECHAT_ARTICLE_TITLE: ${{ github.event.inputs.article_title }}
+          WECHAT_ARTICLE_CONTENT: ${{ github.event.inputs.article_content }}
+          DRY_RUN: ${{ github.event.inputs.dry_run }}
+        run: node scripts/publish.mjs

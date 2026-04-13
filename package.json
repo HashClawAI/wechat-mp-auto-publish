@@ -1,0 +1,13 @@
+{
+  "name": "wechat-mp-auto-publish",
+  "private": true,
+  "version": "0.1.0",
+  "description": "WeChat Official Account draft/publish helpers",
+  "type": "module",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "publish:draft": "node scripts/publish.mjs"
+  }
+}
