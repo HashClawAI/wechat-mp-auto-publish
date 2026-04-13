@@ -12,6 +12,11 @@ Scripts and runbooks for **WeChat Official Account (微信公众号)** draft/pub
 - **AppID** and **AppSecret** from [微信公众平台](https://mp.weixin.qq.com/) → 开发 → 基本配置.
 - For real `draft/add` calls: a **permanent** `thumb_media_id` (封面) from material upload — see [微信文档 — 草稿箱](https://developers.weixin.qq.com/doc/subscription/api/draftbox/draftmanage/api_draft_add).
 
+## Agent / Skill workflow (主题 → 故事 → 配图 → 草稿)
+
+Cursor 个人 skill：`~/.cursor/skills/wechat-mp-auto-publish/`（含 **`pipeline.md`** 分步清单）。  
+Agent 按该清单：可选调用你的「写作」skill → 本地保存配图 → 下面两条命令上传 → `publish.mjs` 写入草稿箱。
+
 ## Quick start (local)
 
 ```bash
@@ -20,6 +25,16 @@ cp .env.example .env
 # edit .env — never commit .env
 
 DRY_RUN=1 node scripts/publish.mjs
+```
+
+### Upload images (cover + inline)
+
+```bash
+# Permanent image → media_id for WECHAT_THUMB_MEDIA_ID
+node scripts/upload-media.mjs thumb path/to/cover.jpg
+
+# Article body image → use returned url in <img src="...">
+node scripts/upload-media.mjs inline path/to/diagram.png
 ```
 
 With `DRY_RUN=1`, the script fetches an access token (stable token API) and prints the draft payload it **would** send.
