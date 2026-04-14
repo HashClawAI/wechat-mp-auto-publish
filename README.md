@@ -18,6 +18,7 @@
 - **`scripts/publish.mjs`**：支持 `.env` 或 `article.json` 输入；`DRY_RUN=1` 时打印将提交的 JSON，并把最终 HTML / payload 落到 `artifacts/`。
 - **`scripts/render-article.mjs`**：把结构化文章包渲染为微信可发布 HTML。
 - **`scripts/import-skill-output.mjs`**：把写作 skill 的 JSON 输出转换成 publish repo 可直接消费的文章包。
+- **`scripts/publish-from-skill.mjs`**：一条命令串起 import → render → publish，适合直接吃 skill 输出。
 - **`scripts/upload-media.mjs`**：`thumb` 上传永久素材得到封面 **`media_id`**；`inline` 上传正文插图得到微信 **`url`**（用于 HTML `<img src>`）。
 
 ---
@@ -50,6 +51,21 @@ WECHAT_ARTICLE_JSON_PATH=examples/article-package.example.json node scripts/publ
 ### 方式 C：从写作 skill 输出直接接入
 
 如果写作 skill 输出了 JSON 文件：
+
+```bash
+npm run publish:from-skill -- --input skill-output.json
+```
+
+默认会：
+- 生成 `examples/article-package.generated.json`
+- 渲染 `artifacts/last-rendered.html`
+- 继续调用 `publish.mjs`
+
+需要自定义输出路径时可加：
+- `--article path/to/article.json`
+- `--render-out path/to/rendered.html`
+
+如果你想手动分步调试，也可以继续这样跑：
 
 ```bash
 node scripts/import-skill-output.mjs --input skill-output.json --out examples/article-package.generated.json
@@ -101,9 +117,9 @@ WECHAT_ARTICLE_JSON_PATH=examples/article-package.generated.json node scripts/pu
 
 ```text
 写作 skill 输出 JSON
-→ import-skill-output.mjs
+→ publish-from-skill.mjs
 → article-package.generated.json
-→ render-article.mjs（可选）
+→ last-rendered.html
 → publish.mjs
 → 微信草稿箱
 ```
@@ -131,6 +147,7 @@ WECHAT_ARTICLE_JSON_PATH=examples/article-package.generated.json node scripts/pu
 | `node scripts/publish.mjs --article path/to/article.json` | 从结构化文章包创建草稿 |
 | `node scripts/render-article.mjs --article path/to/article.json` | 把文章包渲染为可发布 HTML |
 | `node scripts/import-skill-output.mjs --input skill-output.json --out article.json` | 把写作 skill 输出转成 article package |
+| `npm run publish:from-skill -- --input skill-output.json` | 一步完成 import、render、publish |
 | `node scripts/upload-media.mjs thumb <图片路径>` | 封面上传 → `WECHAT_THUMB_MEDIA_ID` |
 | `node scripts/upload-media.mjs inline <图片路径>` | 正文图上传 → 将返回的 `url` 写入 HTML |
 

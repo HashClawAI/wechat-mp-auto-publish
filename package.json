@@ -10,6 +10,7 @@
   "scripts": {
     "publish:draft": "node scripts/publish.mjs",
     "render:article": "node scripts/render-article.mjs",
-    "import:skill-output": "node scripts/import-skill-output.mjs"
+    "import:skill-output": "node scripts/import-skill-output.mjs",
+    "publish:from-skill": "node scripts/publish-from-skill.mjs"
   }
 }
