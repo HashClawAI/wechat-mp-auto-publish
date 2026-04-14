@@ -6,6 +6,7 @@ function parseArgs(argv) {
   let inputPath = "";
   let articlePath = "examples/article-package.generated.json";
   let renderOut = "artifacts/last-rendered.html";
+  let dryRunOnly = false;
   const passThrough = [];
 
   for (let i = 2; i < argv.length; i += 1) {
@@ -13,10 +14,11 @@ function parseArgs(argv) {
     if (arg === "--input") inputPath = argv[++i] || "";
     else if (arg === "--article") articlePath = argv[++i] || articlePath;
     else if (arg === "--render-out") renderOut = argv[++i] || renderOut;
+    else if (arg === "--dry-run-only") dryRunOnly = true;
     else passThrough.push(arg);
   }
 
-  return { inputPath, articlePath, renderOut, passThrough };
+  return { inputPath, articlePath, renderOut, dryRunOnly, passThrough };
 }
 
 function runStep(label, args, extraEnv = {}) {
@@ -37,7 +39,7 @@ function ensureParent(path) {
 }
 
 function main() {
-  const { inputPath, articlePath, renderOut, passThrough } = parseArgs(process.argv);
+  const { inputPath, articlePath, renderOut, dryRunOnly, passThrough } = parseArgs(process.argv);
   if (!inputPath) {
     throw new Error("Missing --input path for skill output JSON.");
   }
@@ -49,6 +51,7 @@ function main() {
   runStep("render", ["scripts/render-article.mjs", "--article", articlePath, "--out", renderOut]);
   runStep("publish", ["scripts/publish.mjs", "--article", articlePath, ...passThrough], {
     WECHAT_ARTICLE_JSON_PATH: articlePath,
+    ...(dryRunOnly ? { DRY_RUN: "1" } : {}),
   });
 }
 

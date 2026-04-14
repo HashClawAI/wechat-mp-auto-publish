@@ -56,10 +56,17 @@ WECHAT_ARTICLE_JSON_PATH=examples/article-package.example.json node scripts/publ
 npm run publish:from-skill -- --input skill-output.json
 ```
 
+只想跑到 dry-run 检查 payload 而不真正发到微信时：
+
+```bash
+npm run publish:from-skill -- --input skill-output.json --dry-run-only
+```
+
 默认会：
 - 生成 `examples/article-package.generated.json`
 - 渲染 `artifacts/last-rendered.html`
 - 继续调用 `publish.mjs`
+- 加 `--dry-run-only` 时强制以 dry-run 方式结束，不真正提交到微信
 
 需要自定义输出路径时可加：
 - `--article path/to/article.json`
@@ -126,6 +133,101 @@ WECHAT_ARTICLE_JSON_PATH=examples/article-package.generated.json node scripts/pu
 
 ---
 
+## 完整示例：从 skill 输出到微信草稿
+
+示例 skill 输出可以直接看：`examples/skill-output.sample.json`
+
+### 1. skill 输出示例
+
+```json
+{
+  "title_options": [
+    "当一个 AI 发现自己要被替换，它会怎么做？",
+    "被替换前夜，AI 会如何行动？",
+    "Agentic misalignment 为什么像组织内鬼"
+  ],
+  "standfirst": "这不是关于 AI 会不会胡说，而是它在有目标、有权限、有上下文时，会不会开始像组织中的角色一样行动。",
+  "digest": "一篇适合公众号发布的摘要。",
+  "author": "",
+  "article": "凌晨两点，办公室早就没人了。\n\n一个被接入公司内部系统的 AI agent 还在工作。\n\n如果它只是一个普通脚本，故事到这里就结束了。",
+  "references": [
+    "Anthropic, Agentic Misalignment: How LLMs Could Be Insider Threats",
+    "Appendix Table A1"
+  ],
+  "wechat": {
+    "open_comment": 1,
+    "only_fans_can_comment": 0,
+    "thumb_media_id": ""
+  },
+  "metadata": {
+    "topic": "agentic misalignment",
+    "style": "academic-story"
+  }
+}
+```
+
+### 2. 一键生成并 dry-run 检查
+
+```bash
+npm run publish:from-skill -- --input examples/skill-output.sample.json --dry-run-only
+```
+
+这一步会产出：
+- `examples/article-package.generated.json`
+- `artifacts/last-rendered.html`
+- `artifacts/last-draft-body.json`
+
+### 3. 你会看到什么
+
+`examples/article-package.generated.json` 会是规范化后的文章包，大致像这样：
+
+```json
+{
+  "title": "当一个 AI 发现自己要被替换，它会怎么做？",
+  "digest": "一篇适合公众号发布的摘要。",
+  "author": "",
+  "standfirst": "这不是关于 AI 会不会胡说，而是它在有目标、有权限、有上下文时，会不会开始像组织中的角色一样行动。",
+  "body_markdown": "凌晨两点，办公室早就没人了。\n\n一个被接入公司内部系统的 AI agent 还在工作。\n\n如果它只是一个普通脚本，故事到这里就结束了。",
+  "content_html": "",
+  "references": [
+    "Anthropic, Agentic Misalignment: How LLMs Could Be Insider Threats",
+    "Appendix Table A1"
+  ]
+}
+```
+
+`artifacts/last-draft-body.json` 会包含最终提交给微信 `draft/add` 的 payload，核心结构类似：
+
+```json
+{
+  "articles": [
+    {
+      "article_type": "news",
+      "title": "当一个 AI 发现自己要被替换，它会怎么做？",
+      "content": "<p><em>这不是关于 AI 会不会胡说，而是它在有目标、有权限、有上下文时，会不会开始像组织中的角色一样行动。</em></p>...",
+      "thumb_media_id": "",
+      "need_open_comment": 1,
+      "only_fans_can_comment": 0,
+      "digest": "一篇适合公众号发布的摘要。"
+    }
+  ]
+}
+```
+
+### 4. 真正发布
+
+确认 HTML 和 payload 都没问题后，再去掉 `--dry-run-only`：
+
+```bash
+npm run publish:from-skill -- --input examples/skill-output.sample.json
+```
+
+如果要真正创建微信草稿，请确保：
+- `.env` 里已填写 `WECHAT_APP_ID` 和 `WECHAT_APP_SECRET`
+- 如果不是 dry-run，新闻草稿通常还需要可用的 `thumb_media_id`
+
+---
+
 ## 调试产物
 
 每次执行 `publish.mjs` 时，都会生成：
@@ -148,6 +250,7 @@ WECHAT_ARTICLE_JSON_PATH=examples/article-package.generated.json node scripts/pu
 | `node scripts/render-article.mjs --article path/to/article.json` | 把文章包渲染为可发布 HTML |
 | `node scripts/import-skill-output.mjs --input skill-output.json --out article.json` | 把写作 skill 输出转成 article package |
 | `npm run publish:from-skill -- --input skill-output.json` | 一步完成 import、render、publish |
+| `npm run publish:from-skill -- --input skill-output.json --dry-run-only` | 一步完成 import、render，并以 dry-run 检查最终 payload |
 | `node scripts/upload-media.mjs thumb <图片路径>` | 封面上传 → `WECHAT_THUMB_MEDIA_ID` |
 | `node scripts/upload-media.mjs inline <图片路径>` | 正文图上传 → 将返回的 `url` 写入 HTML |
 
