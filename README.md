@@ -2,27 +2,23 @@
 
 面向 **微信公众平台（公众号）** 的本地小工具集：用官方接口拉取 **`access_token`**、上传封面与正文图、调用 **`draft/add`** 在 **草稿箱** 里创建图文草稿。默认 **不群发、不对粉丝自动发布**，发布动作仍在公众平台网页里由你确认。
 
+现在这个仓库同时支持两种内容输入方式：
+- 传统 `.env` 变量输入
+- 新增的 **article package JSON** 输入，更适合直接对接写作 skill 输出
+
 | 资源 | 链接 |
 |------|------|
 | 本仓库 | [HashClawAI/wechat-mp-auto-publish](https://github.com/HashClawAI/wechat-mp-auto-publish) |
-| 配套 Cursor Skill（本机） | `~/.cursor/skills/wechat-mp-auto-publish/`（`SKILL.md`、`pipeline.md`、`reference.md`） |
-| 默认写作 Skill（可选） | [HashClawAI/write-skill-academic-story](https://github.com/HashClawAI/write-skill-academic-story) — 建议 clone 到 `~/.cursor/skills/write-skill-academic-story/` 或确保 `main` 分支已推送 `SKILL.md` |
+| 默认写作 Skill | [HashClawAI/write-skill-academic-story](https://github.com/HashClawAI/write-skill-academic-story) |
 
 ---
 
 ## 功能一览
 
-- **`scripts/publish.mjs`**：使用 [stable_token](https://developers.weixin.qq.com/doc/offiaccount/Basic_Information/getStableAccessToken.html) 获取 `access_token`；`DRY_RUN=1` 时只打印将要提交的 JSON；`DRY_RUN=0` 时调用 [draft/add](https://developers.weixin.qq.com/doc/subscription/api/draftbox/draftmanage/api_draft_add.html) 创建草稿。
+- **`scripts/publish.mjs`**：支持 `.env` 或 `article.json` 输入；`DRY_RUN=1` 时打印将提交的 JSON，并把最终 HTML / payload 落到 `artifacts/`。
+- **`scripts/render-article.mjs`**：把结构化文章包渲染为微信可发布 HTML。
+- **`scripts/import-skill-output.mjs`**：把写作 skill 的 JSON 输出转换成 publish repo 可直接消费的文章包。
 - **`scripts/upload-media.mjs`**：`thumb` 上传永久素材得到封面 **`media_id`**；`inline` 上传正文插图得到微信 **`url`**（用于 HTML `<img src>`）。
-- **`.github/workflows/publish-draft.yml`**：仅 **手动触发**（`workflow_dispatch`），可选在 CI 里跑同一套脚本。
-
----
-
-## 前置条件
-
-- **Node.js ≥ 18**（本机执行 `node -v`）。
-- 公众号已开启 **开发者模式**，并在 [公众平台](https://mp.weixin.qq.com/) → **开发 → 基本配置** 取得 **AppID**、**AppSecret**。
-- 若后台启用了 **IP 白名单**：把当前运行脚本所在网络的 **公网出口 IP** 加入白名单；GitHub 默认 Runner 的 IP **不固定**，在 Actions 里调用接口常会踩白名单，需要自建 Runner 或固定出口代理。
 
 ---
 
@@ -31,44 +27,99 @@
 ```bash
 git clone https://github.com/HashClawAI/wechat-mp-auto-publish.git
 cd wechat-mp-auto-publish
-
 cp .env.example .env
-# 编辑 .env：填入 WECHAT_APP_ID、WECHAT_APP_SECRET；勿将 .env 提交到 Git
-
-# 先验证 token 与草稿 JSON（不创建草稿）
-node scripts/publish.mjs
-# 或
-npm run publish:draft
 ```
 
-创建 **真实草稿** 前：
+先填 `.env` 里的 `WECHAT_APP_ID` / `WECHAT_APP_SECRET`。
 
-1. 准备封面图，执行 `node scripts/upload-media.mjs thumb path/to/cover.jpg`，把返回的 `media_id` 写入 `.env` 的 **`WECHAT_THUMB_MEDIA_ID`**。  
-2. 在 `.env` 中设置 **`WECHAT_ARTICLE_TITLE`**、**`WECHAT_ARTICLE_CONTENT`**（及可选字段，见下表）。  
-3. 将 **`DRY_RUN=0`**，再执行 `node scripts/publish.mjs`。  
-4. 打开 [公众平台](https://mp.weixin.qq.com/) → **草稿箱** 检查草稿。
+### 方式 A：继续用 `.env` 直接发
 
-正文里的图片须使用 **`upload-media.mjs inline`** 返回的地址；外链图片常被过滤。
+```bash
+node scripts/publish.mjs
+```
+
+### 方式 B：用结构化文章包
+
+先准备一个 JSON（可参考 `examples/article-package.example.json`）：
+
+```bash
+node scripts/render-article.mjs --article examples/article-package.example.json > /tmp/rendered.json
+WECHAT_ARTICLE_JSON_PATH=examples/article-package.example.json node scripts/publish.mjs
+```
+
+### 方式 C：从写作 skill 输出直接接入
+
+如果写作 skill 输出了 JSON 文件：
+
+```bash
+node scripts/import-skill-output.mjs --input skill-output.json --out examples/article-package.generated.json
+node scripts/render-article.mjs --article examples/article-package.generated.json
+WECHAT_ARTICLE_JSON_PATH=examples/article-package.generated.json node scripts/publish.mjs
+```
 
 ---
 
-## 环境变量说明
+## Article package 契约
 
-完整模板见 **[`.env.example`](.env.example)**。下列为常用项（敏感项仅保存在本机 `.env` 或 GitHub **Secrets**）。
+推荐结构：
 
-| 变量 | 说明 |
-|------|------|
-| `WECHAT_APP_ID` / `WECHAT_APP_SECRET` | 公众平台凭据，必填 |
-| `WECHAT_THUMB_MEDIA_ID` | 封面永久素材 `media_id`；`DRY_RUN=0` 时必填 |
-| `WECHAT_ARTICLE_TITLE` | 标题 |
-| `WECHAT_ARTICLE_AUTHOR` | 作者（≤16 字）；不填则请求里不带该字段 |
-| `WECHAT_ARTICLE_DIGEST` | 单图文摘要（≤128 字）；不填则由微信从正文截取 |
-| `WECHAT_ARTICLE_CONTENT` | HTML 正文 |
-| `WECHAT_CONTENT_SOURCE_URL` | 「阅读原文」链接 |
-| `WECHAT_NEED_OPEN_COMMENT` | `1` 开评论，`0` 关（示例默认为 `1`） |
-| `WECHAT_ONLY_FANS_CAN_COMMENT` | `1` 仅粉丝可评，`0` 所有人可评 |
-| `WECHAT_PIC_CROP_235_1` / `WECHAT_PIC_CROP_1_1` | 可选，封面裁剪坐标，格式见官方文档 |
-| `DRY_RUN` | `1` 仅调试；`0` 调用 `draft/add` |
+```json
+{
+  "title": "文章标题",
+  "digest": "摘要",
+  "author": "作者名",
+  "standfirst": "导语",
+  "body_markdown": "正文 markdown/plain text",
+  "content_html": "<p>可选：若已生成最终 HTML，可直接提供</p>",
+  "references": ["参考资料 1", "参考资料 2"],
+  "source_url": "https://example.com",
+  "thumb_media_id": "",
+  "open_comment": 1,
+  "only_fans_can_comment": 0,
+  "metadata": {
+    "topic": "主题",
+    "style": "academic-story"
+  }
+}
+```
+
+优先级：
+- 若提供 `content_html`，发布脚本直接使用
+- 否则可先通过 `render-article.mjs` 把 `standfirst + body_markdown + references` 渲染成 HTML
+
+---
+
+## 与 write-skill-academic-story 的无缝配合
+
+推荐让写作 skill 在“公众号发布模式”下输出两层内容：
+1. 给人看的文章正文
+2. 给机器用的 JSON block
+
+这个 repo 的 `import-skill-output.mjs` 负责把该 JSON block 规范化为 `article package`，然后进入 `render-article.mjs` / `publish.mjs`。
+
+这样以后流程会是：
+
+```text
+写作 skill 输出 JSON
+→ import-skill-output.mjs
+→ article-package.generated.json
+→ render-article.mjs（可选）
+→ publish.mjs
+→ 微信草稿箱
+```
+
+---
+
+## 调试产物
+
+每次执行 `publish.mjs` 时，都会生成：
+
+- `artifacts/last-rendered.html`
+- `artifacts/last-draft-body.json`
+
+这两个文件有助于检查：
+- HTML 是否符合预期
+- 真正发给微信 `draft/add` 的 payload 长什么样
 
 ---
 
@@ -76,72 +127,40 @@ npm run publish:draft
 
 | 命令 | 作用 |
 |------|------|
-| `node scripts/publish.mjs` | 读取 `.env`，按 `DRY_RUN` 调试或创建草稿 |
+| `node scripts/publish.mjs` | 读取 `.env` 或 article package，按 `DRY_RUN` 调试或创建草稿 |
+| `node scripts/publish.mjs --article path/to/article.json` | 从结构化文章包创建草稿 |
+| `node scripts/render-article.mjs --article path/to/article.json` | 把文章包渲染为可发布 HTML |
+| `node scripts/import-skill-output.mjs --input skill-output.json --out article.json` | 把写作 skill 输出转成 article package |
 | `node scripts/upload-media.mjs thumb <图片路径>` | 封面上传 → `WECHAT_THUMB_MEDIA_ID` |
 | `node scripts/upload-media.mjs inline <图片路径>` | 正文图上传 → 将返回的 `url` 写入 HTML |
 
-临时覆盖环境变量（不修改 `.env` 文件）示例：
-
-```bash
-DRY_RUN=0 WECHAT_THUMB_MEDIA_ID=xxx WECHAT_ARTICLE_TITLE=标题 node scripts/publish.mjs
-```
-
 ---
 
-## 与 Cursor Skill 的配合
+## Review 结论 / 这次改进点
 
-端到端「主题 + 材料 → 成稿 → 配图 → 草稿」由本机 **wechat-mp-auto-publish** Skill 的 **`pipeline.md`** 描述：写作上默认对齐 **write-skill-academic-story**，再调用本仓库脚本上传素材并 `publish.mjs` 落库。
+我 review 后认为这个 repo 原本已经足够轻量可用，但有三点明显可以提升：
 
-推荐本机目录结构示例：
+1. **输入契约过于原始**
+   - 之前只能吃 `.env` 里的标题/HTML
+   - 现在支持 `article package JSON`
 
-```text
-~/.cursor/skills/wechat-mp-auto-publish/   # 公众号编排 Skill
-~/.cursor/skills/write-skill-academic-story/   # 写作 Skill（clone 写作仓库）
-/path/to/wechat-mp-auto-publish/         # 本仓库：脚本与 .env
-```
+2. **脚本有重复逻辑**
+   - 已把 env / token / fetch 逻辑抽到 `scripts/lib/`
 
----
-
-## 草稿接口能填什么、哪些要在后台补
-
-`draft/add` 支持的常见字段包括：`title`、`author`、`digest`、`content`、`content_source_url`、`thumb_media_id`、评论开关、封面裁剪等，以 [官方文档](https://developers.weixin.qq.com/doc/subscription/api/draftbox/draftmanage/api_draft_add.html) 为准。
-
-**接口文档中通常不包含**「原创声明」「转载声明」「合集」等编辑器选项，这些仍需在 **公众平台网页里打开该草稿** 后手动设置。
-
----
-
-## GitHub Actions
-
-工作流：**[`.github/workflows/publish-draft.yml`](.github/workflows/publish-draft.yml)**（仅 `workflow_dispatch`）。
-
-1. 在仓库 **Settings → Secrets and variables → Actions** 中配置：  
-   - **`WECHAT_APP_ID`**、**`WECHAT_APP_SECRET`**（必填）  
-   - 若 `dry_run` 选择 **false**：还需 **`WECHAT_THUMB_MEDIA_ID`**  
-2. **Actions** 中选择 **publish-draft** → **Run workflow**，按需填写标题、正文 HTML、`dry_run`。
-
-**IP 白名单**：在 GitHub 托管 Runner 上调用接口时，出口 IP 可能不在你公众平台白名单内；若报 `40164`，请改用本机执行、自建 Runner，或与微信侧网络策略对齐。
+3. **与写作 skill 缺少桥接层**
+   - 现在新增 `import-skill-output.mjs`
+   - 可以把 skill 输出直接转换为 publish repo 的标准输入
 
 ---
 
 ## 安全与隐私
 
-- **`.env`、`.env.*` 已被 `.gitignore` 忽略**；勿将含 `WECHAT_APP_SECRET` 的文件提交或贴进 Issue / PR。  
-- 线上密钥请放在 GitHub **Secrets** 或受控密钥系统，不要写进 YAML 明文。  
-- 临时下载的配图可放在本仓库 **`artifacts/`** 目录（已忽略），避免把有版权争议的图片提交到 Git。
-
----
-
-## 常见问题
-
-| 现象 | 处理方向 |
-|------|----------|
-| `40164` / `invalid ip` | 将报错中的公网 IP 加入公众平台 **IP 白名单**；或换到已加白的网络 |
-| `40125` / `invalid secret` | 检查 `AppSecret` 是否与后台一致（重置后需全量更新） |
-| `48001` / `api unauthorized` | 账号类型或未认证导致无该接口权限，对照官方「适用范围」 |
-| 正文图片不显示 | 确认 `<img src>` 为 **`uploadimg`** 返回的微信 URL，而非外链 |
+- `.env`、`.env.*` 已被 `.gitignore` 忽略；勿提交密钥。
+- 线上密钥请放在 GitHub Secrets 或受控密钥系统。
+- GitHub Actions 若遇到 IP 白名单限制，优先在本机或自建 Runner 执行。
 
 ---
 
 ## 免责声明
 
-微信接口字段、账号权限与平台规则可能变更；正式使用前请以 [微信公众平台技术文档](https://developers.weixin.qq.com/doc/offiaccount/Getting_Started/Overview.html) 当前说明为准。本仓库为辅助工具，不保证与所有账号类型或未来接口变更完全兼容。
+微信接口字段、账号权限与平台规则可能变更；正式使用前请以微信公众平台技术文档当前说明为准。
