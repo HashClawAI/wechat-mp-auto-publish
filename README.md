@@ -9,6 +9,7 @@
 | 资源 | 链接 |
 |------|------|
 | 本仓库 | [HashClawAI/wechat-mp-auto-publish](https://github.com/HashClawAI/wechat-mp-auto-publish) |
+| 协作流程 | **PR → 审查 → 人类 Merge**；见 [CONTRIBUTING.md](CONTRIBUTING.md) 与 [.cursor/rules/github-pr-first.mdc](.cursor/rules/github-pr-first.mdc) |
 | 配套 Cursor Skill（本机） | `~/.cursor/skills/wechat-mp-auto-publish/`（`SKILL.md`、`pipeline.md`、`reference.md`） |
 | 默认写作 Skill | [HashClawAI/write-skill-academic-story](https://github.com/HashClawAI/write-skill-academic-story) — 定义在 **`skills/article-writing-academic-story/SKILL.md`**；可将该目录放到 `~/.cursor/skills/article-writing-academic-story/` 或通过 raw URL 拉取 |
 
