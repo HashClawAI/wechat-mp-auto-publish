@@ -1,0 +1,26 @@
+{
+  "title_options": [
+    "WebArena：网页智能体为何总在真站点上露馅",
+    "长链条网页任务：成功率差距意味着什么",
+    "2307.13854：从购物车到论坛，评测逼出短板"
+  ],
+  "standfirst": "网页看起来友好，但对机器而言到处是隐式状态与不可逆点击。",
+  "digest": "WebArena 构建可复现网站环境评测网页智能体，报告显示强模型与人类在长任务上的成功率差距仍然巨大。",
+  "author": "HashClaw",
+  "article": "arXiv:2307.13854（ICLR 2024）的 WebArena 把评测放到接近真实的网站生态：电商、论坛、协作开发与内容管理等多域任务。它强调功能正确性，而不是文本相似度。\n\n这类工作的意义在于把「能聊天」与「能办事」分开。长链条任务里，错误会累积；一个误点可能让后续步骤全部偏离。论文给出的成功率对比，适合作为团队内部的冷静剂。\n\n它也提示工程路径：检索、规划、状态跟踪、以及人类在环的兜底，往往比换更大的模型更紧迫。\n\n网页智能体的产品化，不会由单次 benchmark 决定，但没有 benchmark，产品只会被事故教育。\n\n让评测先残酷一点，现场就会温柔一点。",
+  "references": [
+    "Zhou et al., WebArena: A Realistic Web Environment for Building Autonomous Agents, arXiv:2307.13854; ICLR 2024",
+    "整理自公开论文信息；细节请以原文与官方页面为准。"
+  ],
+  "wechat": {
+    "open_comment": 1,
+    "only_fans_can_comment": 0,
+    "thumb_media_id": ""
+  },
+  "metadata": {
+    "generated_by": "write-skill-academic-story+cursor-agent",
+    "style": "academic-story",
+    "topic": "webarena",
+    "generated_at": "2026-04-14T02:39:37.774Z"
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "title_options": [
+    "AutoGen：多智能体会话如何变成应用脚手架",
+    "把对话当作编程接口之后，组织边界在哪里",
+    "2308.08155：框架热背后仍要回答的治理问题"
+  ],
+  "standfirst": "当对话成为编排语言，最容易被忽略的是谁对最终动作负责。",
+  "digest": "AutoGen 以多智能体对话为核心抽象，推动 LLM 应用的可编排化；落地时需关注权限、审计与成本。",
+  "author": "HashClaw",
+  "article": "arXiv:2308.08155 的 AutoGen 把多智能体对话推到应用层：不同角色、不同系统提示、不同工具边界，可以用对话式工作流拼装。它降低的是原型成本，不是风险成本。\n\n对团队而言，这类框架的价值在于快速试验协作拓扑；代价在于调试复杂度随角色数上升，以及「自动」二字对非技术同事的误导。\n\n治理问题会被放大：谁能发起金融操作？谁能访问客户数据？失败时如何归因？日志是否足以审计？\n\n框架解决的是连接，不负责替你写制度。\n\n把 AutoGen 当作脚手架很合适；把它当作免审的自动化，就会在某个周五晚上收到账单与律师函。\n\n编排越灵活，责任越要写清。",
+  "references": [
+    "Wu et al., AutoGen: Enabling Next-Gen LLM Applications via Multi-Agent Conversation, arXiv:2308.08155",
+    "整理自公开论文信息；细节请以原文与官方页面为准。"
+  ],
+  "wechat": {
+    "open_comment": 1,
+    "only_fans_can_comment": 0,
+    "thumb_media_id": ""
+  },
+  "metadata": {
+    "generated_by": "write-skill-academic-story+cursor-agent",
+    "style": "academic-story",
+    "topic": "autogen-framework",
+    "generated_at": "2026-04-14T02:39:37.775Z"
+  }
+}

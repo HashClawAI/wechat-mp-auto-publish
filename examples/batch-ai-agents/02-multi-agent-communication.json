@@ -1,0 +1,26 @@
+{
+  "title_options": [
+    "多智能体不是群聊：通信视角把乱象说透",
+    "Beyond Self-Talk：LLM 多智能体系统缺哪块协议",
+    "当模型们开始协作，瓶颈往往在消息而不是参数"
+  ],
+  "standfirst": "把多智能体想成「会说话的进程」，你会立刻看见通信成本、信任边界与失败模式。",
+  "digest": "2025 年通信中心综述梳理多智能体系统的架构、协议与评测缺口，适合负责编排与安全的工程负责人。",
+  "author": "HashClaw",
+  "article": "很多人把多智能体系统想象成开黑：模型越多，越强。工程现场更常见的画面是：消息风暴、互相覆盖的上下文、以及没人负责的中间态。\n\narXiv:2502.14321 从通信视角切入，讨论系统层协议与内部策略如何共同决定稳定性。它提醒一件朴素的事：协作不是自然发生的，它需要约束——谁可以写状态、谁可以发起工具调用、失败时如何回滚。\n\n对团队而言，这意味着在设计阶段就要写清「消息契约」，而不是上线后再用日志考古。安全与成本也藏在通信里：重复推理、循环辩论、被恶意提示劫持的通道，都是真实风险。\n\n它不会给你一套万能框架，但会让你在评审架构时多问几句：这条消息必要吗？这个权限是否过大？这个失败路径有没有 owner？\n\n协作的优雅，往往来自克制的协议，而不是更多的模型。",
+  "references": [
+    "arXiv:2502.14321 — Beyond Self-Talk: A Communication-Centric Survey of LLM-Based Multi-Agent Systems (2025)",
+    "整理自公开论文信息；细节请以原文与官方页面为准。"
+  ],
+  "wechat": {
+    "open_comment": 1,
+    "only_fans_can_comment": 0,
+    "thumb_media_id": ""
+  },
+  "metadata": {
+    "generated_by": "write-skill-academic-story+cursor-agent",
+    "style": "academic-story",
+    "topic": "multi-agent-communication",
+    "generated_at": "2026-04-14T02:39:37.772Z"
+  }
+}

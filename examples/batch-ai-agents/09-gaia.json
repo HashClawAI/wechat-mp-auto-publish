@@ -1,0 +1,26 @@
+{
+  "title_options": [
+    "GAIA：对人类简单、对模型难的问题集",
+    "通用助手 benchmark 在测什么常识与工具",
+    "2311.12983：92% 与 15% 的差距说明了什么"
+  ],
+  "standfirst": "有些问题不难写，但难在把步骤做对：这正是通用助手的痛点。",
+  "digest": "GAIA 用现实问题测试推理、多模态与工具使用；论文报告人类与带插件 GPT-4 的显著差距（以论文表述为准）。",
+  "author": "HashClaw",
+  "article": "arXiv:2311.12983 的 GAIA 把「对人类概念简单」的问题摆上来：需要多步推理、浏览与工具配合的现实任务。它的设计动机是避免只追人类越来越做不对的超难题，而忽略日常可用性。\n\n读这篇工作的正确姿势，是对照你们内部最常见的五类工单：订票、查资料、汇总表格、跨应用复制、以及需要验证来源的问答。GAIA 不是替代你们的评测集，而是提醒：通用性不是平均数的幻觉。\n\n它也把责任划清：插件与工具链引入新的失败面，安全与权限要同步设计。\n\n如果助手要走进工作流，先把「人类觉得简单」的任务做稳，比刷榜更接近价值。\n\n简单是难的另一种写法。",
+  "references": [
+    "Mialon et al., GAIA: A Benchmark for General AI Assistants, arXiv:2311.12983",
+    "整理自公开论文信息；细节请以原文与官方页面为准。"
+  ],
+  "wechat": {
+    "open_comment": 1,
+    "only_fans_can_comment": 0,
+    "thumb_media_id": ""
+  },
+  "metadata": {
+    "generated_by": "write-skill-academic-story+cursor-agent",
+    "style": "academic-story",
+    "topic": "gaia-assistants",
+    "generated_at": "2026-04-14T02:39:37.774Z"
+  }
+}

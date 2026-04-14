@@ -1,0 +1,26 @@
+{
+  "title_options": [
+    "推理与智能体：一份新地图把前沿摆上桌",
+    "从推理缩放谈到智能体系统，综述在画什么边界",
+    "2504.09037：LLM 推理前沿与智能体工作流"
+  ],
+  "standfirst": "当论文把推理与智能体放在同一张图里，你读到的不是口号，而是一套可对照研究议程的分区。",
+  "digest": "2025 年一篇系统综述把推理缩放、学习推理与智能体架构放在同一框架里讨论，适合想看清术语与脉络的读者。",
+  "author": "HashClaw",
+  "article": "凌晨读综述的人，最怕两件事：概念堆成山，以及每座山都自称最重要。\n\narXiv:2504.09037 这篇工作选择把「推理」拆成可讨论的前沿：推理时的缩放、学习去推理，以及把模型放进工具与协作流程里的智能体系统。它更像地图，而不是判决书——告诉你哪些方向在文献里被反复加固，哪些还只是工程直觉。\n\n读它的价值在于对齐语言：当你说智能体，是在说工具循环、规划器、还是多模型协同？当你说推理，是在说链式提示、可验证奖励、还是评测里的通过率？先把分区看清，再决定把团队资源押在哪条证据链上。\n\n局限也诚实：综述聚合的是当下文献，落地到你们的数据、权限与风控，仍要回到小规模试验与失败日志。地图不会替你走路，但能让你少在沼泽里兜圈。\n\n若只带走一句：先把推理与智能体的边界画清楚，再谈路线图，会少很多会议室里的平行对话。",
+  "references": [
+    "arXiv:2504.09037 — A Survey of Frontiers in LLM Reasoning: Inference Scaling, Learning to Reason, and Agentic Systems (2025)",
+    "整理自公开论文信息；细节请以原文与官方页面为准。"
+  ],
+  "wechat": {
+    "open_comment": 1,
+    "only_fans_can_comment": 0,
+    "thumb_media_id": ""
+  },
+  "metadata": {
+    "generated_by": "write-skill-academic-story+cursor-agent",
+    "style": "academic-story",
+    "topic": "reasoning-agents-survey",
+    "generated_at": "2026-04-14T02:39:37.764Z"
+  }
+}

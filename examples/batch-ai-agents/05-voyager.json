@@ -1,0 +1,26 @@
+{
+  "title_options": [
+    "Voyager：在开放世界里用代码当手脚",
+    "Minecraft 里的终身学习智能体长什么样",
+    "2305.16291：技能库为什么会变成资产"
+  ],
+  "standfirst": "开放世界最残酷之处，在于没有固定考纲；最迷人之处，也在于此。",
+  "digest": "Voyager 在 Minecraft 中把课程、可执行技能库与迭代提示结合，展示开放世界里的组合式学习与泛化思路。",
+  "author": "HashClaw",
+  "article": "arXiv:2305.16291 的 Voyager 把「终身学习」放进一个像素世界：自动课程、可累积的技能代码库、以及把环境反馈吃回去的迭代机制。它用代码作为行动空间，让能力以可组合的方式沉淀。\n\n对研究读者，这组设计讨论的是：记忆如何变成可复用资产，而不是一次性的长上下文。对工程读者，它提醒：没有技能沉淀的循环，只会把同样的错误以更贵的方式重复。\n\n它也把代价摊开：黑盒大模型调用、探索预算、失败路径的调试，都需要系统层面的约束。\n\n把开放世界当作思想实验，你会更谨慎地谈泛化：泛化不是口号，是可检索、可验证、可复用的行为碎片堆出来的。\n\n像素世界是玩具，但问题是真的。",
+  "references": [
+    "Wang et al., Voyager: An Open-Ended Embodied Agent with Large Language Models, arXiv:2305.16291",
+    "整理自公开论文信息；细节请以原文与官方页面为准。"
+  ],
+  "wechat": {
+    "open_comment": 1,
+    "only_fans_can_comment": 0,
+    "thumb_media_id": ""
+  },
+  "metadata": {
+    "generated_by": "write-skill-academic-story+cursor-agent",
+    "style": "academic-story",
+    "topic": "voyager-minecraft",
+    "generated_at": "2026-04-14T02:39:37.773Z"
+  }
+}

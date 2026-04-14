@@ -1,0 +1,26 @@
+{
+  "title_options": [
+    "ReAct：推理与行动交错的那条细线",
+    "先想一步再做一步：2210.03629 为什么仍值得读",
+    "工具循环里，最老的问题仍是何时停"
+  ],
+  "standfirst": "你以为自己在写提示词，其实往往在写一台没有刹车踏板的行为机。",
+  "digest": "ReAct 将推理轨迹与行动交错，为后续工具型智能体提供经典范式；今天读它，是为了理解默认行为从何而来。",
+  "author": "HashClaw",
+  "article": "ReAct 的名字把两件事绑在一起：Reasoning 与 Acting。arXiv:2210.03629 提出的交错轨迹，让模型在生成下一步动作前，先把中间思考写出来——这在工程上极像「可审计的日志」。\n\n今天各类智能体框架里常见的循环：观察、思考、调用工具、再观察，很大程度上是对这条范式的工程化放大。读原文的意义在于：你会看到哪些部分是研究贡献，哪些部分是后来人加的护栏。\n\n它的边界同样清晰：思考链可被诱导、工具权限过大时会放大错误、停止条件与预算控制必须外置。把 ReAct 当圣经会出事，把它当历史坐标会省事。\n\n若你在设计系统，问自己：没有模型自白，我还能不能追责？没有人工阈值，成本会不会在夜里失控？\n\n范式会过时，但「可交错、可中断、可审计」的需求不会。",
+  "references": [
+    "Yao et al., ReAct: Synergizing Reasoning and Acting in Language Models, arXiv:2210.03629; ICLR 2023",
+    "整理自公开论文信息；细节请以原文与官方页面为准。"
+  ],
+  "wechat": {
+    "open_comment": 1,
+    "only_fans_can_comment": 0,
+    "thumb_media_id": ""
+  },
+  "metadata": {
+    "generated_by": "write-skill-academic-story+cursor-agent",
+    "style": "academic-story",
+    "topic": "react",
+    "generated_at": "2026-04-14T02:39:37.773Z"
+  }
+}

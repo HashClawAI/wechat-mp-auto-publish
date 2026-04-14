@@ -1,0 +1,26 @@
+{
+  "title_options": [
+    "SWE-bench：把 GitHub 真问题摆上桌之后",
+    "真仓库、真 issue：语言模型离修 bug 还有多远",
+    "2310.06770：从基准看软件工程智能体"
+  ],
+  "standfirst": "当评测从玩具函数走向真实 issue，分数会难看，但难看得更有价值。",
+  "digest": "SWE-bench 用真实 Python 仓库 issue 评估模型改代码能力，论文揭示早期模型与真实工程之间巨大落差。",
+  "author": "HashClaw",
+  "article": "软件工程里有一种幻觉：模型在短代码题上漂亮，就能进仓库干活。SWE-bench 把问题换成真实 GitHub issue 与测试驱动的修复任务，让幻觉更难维持。\n\narXiv:2310.06770（ICLR 2024）描述的数据集规模与任务形态，迫使团队把「能写代码」细化为「能定位、能改、能通过测试、能处理跨文件依赖」。后续社区围绕它的改进与智能体框架，本质都是在补同一条证据链。\n\n对读者而言，这篇工作的启示是：别用会刷题的指标冒充能上线。要把智能体放进 CI、放进 code review、放进可回滚的发布流程里试。\n\n它也留下边界：基准再真，也只是快照；仓库生态、依赖地狱与企业私有代码，仍需要你们自己的评测集。\n\n把真问题摆上桌，是进步的开始，不是终点。",
+  "references": [
+    "Jimenez et al., SWE-bench: Can Language Models Resolve Real-World GitHub Issues? arXiv:2310.06770; ICLR 2024",
+    "整理自公开论文信息；细节请以原文与官方页面为准。"
+  ],
+  "wechat": {
+    "open_comment": 1,
+    "only_fans_can_comment": 0,
+    "thumb_media_id": ""
+  },
+  "metadata": {
+    "generated_by": "write-skill-academic-story+cursor-agent",
+    "style": "academic-story",
+    "topic": "swe-bench",
+    "generated_at": "2026-04-14T02:39:37.773Z"
+  }
+}

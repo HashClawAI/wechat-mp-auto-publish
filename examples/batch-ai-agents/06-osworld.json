@@ -1,0 +1,26 @@
+{
+  "title_options": [
+    "OSWorld：当评测回到真桌面",
+    "多模态智能体离「像人一样用电脑」还有多远",
+    "2404.07972：GUI 与操作知识的双重缺口"
+  ],
+  "standfirst": "桌面不是网页玩具箱；窗口、焦点与隐式状态会吃掉最漂亮的演示。",
+  "digest": "OSWorld 在真实操作系统环境里评测开放任务，揭示模型与人类在桌面任务成功率上的显著差距。",
+  "author": "HashClaw",
+  "article": "arXiv:2404.07972（NeurIPS 2024）的 OSWorld 把评测推进真实电脑环境：跨应用、跨系统、需要执行反馈的任务。论文报告的人类与模型成功率差距，是对「智能体已可用」叙事的一盆冷水，也是更负责任的参照系。\n\n它把难点摊开：GUI 定位、操作知识、长链条任务中的错误传播。对做产品的人，这意味着桌面自动化不能只看 demo；对做研究的人，这意味着多模态与规划必须一起被衡量。\n\n它也提醒评测伦理与复现：真实环境涉及隐私与账户，工程化封装和去标识化同样重要。\n\n如果智能体要进入办公场景，先把 OSWorld 这类失败案例读进心里，比先看发布会更有用。\n\n真桌面会报复每一个省略的工程细节。",
+  "references": [
+    "Xie et al., OSWorld: Benchmarking Multimodal Agents for Open-Ended Tasks in Real Computer Environments, arXiv:2404.07972; NeurIPS 2024",
+    "整理自公开论文信息；细节请以原文与官方页面为准。"
+  ],
+  "wechat": {
+    "open_comment": 1,
+    "only_fans_can_comment": 0,
+    "thumb_media_id": ""
+  },
+  "metadata": {
+    "generated_by": "write-skill-academic-story+cursor-agent",
+    "style": "academic-story",
+    "topic": "osworld-gui",
+    "generated_at": "2026-04-14T02:39:37.773Z"
+  }
+}
