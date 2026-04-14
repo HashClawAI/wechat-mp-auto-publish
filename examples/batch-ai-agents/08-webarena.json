@@ -1,26 +1,28 @@
 {
   "title_options": [
-    "WebArena：网页智能体为何总在真站点上露馅",
-    "长链条网页任务：成功率差距意味着什么",
-    "2307.13854：从购物车到论坛，评测逼出短板"
+    "WebArena：四个域上的长链条网页任务把短板照出来",
+    "ICLR 2024：功能正确性评测与人类的差距",
+    "读 2307.13854：别把聊天成功率当成能办事"
   ],
-  "standfirst": "网页看起来友好，但对机器而言到处是隐式状态与不可逆点击。",
-  "digest": "WebArena 构建可复现网站环境评测网页智能体，报告显示强模型与人类在长任务上的成功率差距仍然巨大。",
+  "standfirst": "网页像迷宫：每一步走错，后面都在为前面买单。",
+  "digest": "基于摘要：可复现网站环境，电商/论坛/开发/内容管理等任务，强调功能正确性。",
   "author": "HashClaw",
-  "article": "arXiv:2307.13854（ICLR 2024）的 WebArena 把评测放到接近真实的网站生态：电商、论坛、协作开发与内容管理等多域任务。它强调功能正确性，而不是文本相似度。\n\n这类工作的意义在于把「能聊天」与「能办事」分开。长链条任务里，错误会累积；一个误点可能让后续步骤全部偏离。论文给出的成功率对比，适合作为团队内部的冷静剂。\n\n它也提示工程路径：检索、规划、状态跟踪、以及人类在环的兜底，往往比换更大的模型更紧迫。\n\n网页智能体的产品化，不会由单次 benchmark 决定，但没有 benchmark，产品只会被事故教育。\n\n让评测先残酷一点，现场就会温柔一点。",
+  "article": "（正文为 HTML 版，见渲染结果）",
+  "content_html": "<p style=\"margin:0 0 1em 0;line-height:1.75;\"><em>网页像迷宫：每一步走错，后面都在为前面买单。</em></p>\n<h2 style=\"margin:1.2em 0 0.5em;\">开篇</h2>\n<p style=\"margin:0 0 1em 0;line-height:1.75;\">把 WebArena 类失败案例写进 PRD，比把「GPT 已可用」写进 PPT 更负责任。</p>\n<p style=\"margin:0 0 1em 0;line-height:1.75;\">下面这篇稿子的「硬信息」来自 arXiv 元数据：英文标题、作者名单、官方摘要文字（略有截断）。中文部分是我们为公众号读者写的导读与衔接，不是论文译文全文；若你要写进研报或对外材料，请回到原文核对定义、符号与结论。</p>\n<h2 style=\"margin:1.2em 0 0.5em;\">论文卡片</h2>\n<p style=\"margin:0 0 0.5em 0;line-height:1.75;\"><strong>英文题名</strong>：WebArena: A Realistic Web Environment for Building Autonomous Agents</p>\n<p style=\"margin:0 0 0.5em 0;line-height:1.75;\"><strong>作者</strong>：Shuyan Zhou、Frank F. Xu、Hao Zhu、Xuhui Zhou、Robert Lo、Abishek Sridhar、Xianyi Cheng、Tianyue Ou、Yonatan Bisk、Daniel Fried、Uri Alon、Graham Neubig</p>\n<p style=\"margin:0 0 0.5em 0;line-height:1.75;\"><strong>arXiv 记录日期</strong>：2023-07-25T22:59:32Z</p>\n<p style=\"margin:0 0 1em 0;line-height:1.75;\"><strong>备注</strong>：Our code, data, environment reproduction resources, and video demonstrations are publicly available at https://webarena.dev/</p>\n<h2 style=\"margin:1.2em 0 0.5em;\">摘要摘录（英文）</h2>\n<blockquote style=\"margin:0 0 1em 0;padding:0.8em 1em;border-left:4px solid #2d6cdf;background:#f7f9fc;font-size:95%;line-height:1.65;\">With advances in generative AI, there is now potential for autonomous agents to manage daily tasks via natural language commands. However, current agents are primarily created and tested in simplified synthetic environments, leading to a disconnect with real-world scenarios. In this paper, we build an environment for language-guided agents that is highly realistic and reproducible. Specifically, we focus on agents that perform tasks on the web, and create an environment with fully functional websites from four common domains: e-commerce, social forum discussions, collaborative software development, and content management. Our environment is enriched with tools (e.g., a map) and external knowledge bases (e.g., user manuals) to encourage human-like task-solving. Building upon our environment, we release a set of benchmark tasks focusing on evaluating the functional correctness of task comp…</blockquote>\n<p style=\"margin:0 0 1em 0;line-height:1.75;\">如果你不习惯读英文摘要，可以只做一件事：把摘要里反复出现的「动词」圈出来——是 scale、是 train、是 tool、还是 collaborate。它们往往对应团队真正要投入工程化的位置。</p>\n<h2 style=\"margin:1.2em 0 0.5em;\">读法建议</h2>\n<p style=\"margin:0 0 0.6em 0;line-height:1.75;\">第一遍只回答三个问题：这篇工作定义的「任务」是什么？它把「成功」量化成什么信号？它明确承认的局限是什么？</p>\n<p style=\"margin:0 0 0.6em 0;line-height:1.75;\">第二遍再把它映射到你的场景：数据权限、工具链、评测集、以及失败时能不能回滚。没有回滚设计的智能体，只是把事故从「人点错」迁移成「模型点错」。</p>\n<p style=\"margin:0 0 1em 0;line-height:1.75;\">第三遍再去追引用树：综述类论文尤其会把读者带到更大的一片文献海里；别在第一次阅读时就要求自己「全部读完」，先固定两三个最值得跟进的分支。</p>\n<h2 style=\"margin:1.2em 0 0.5em;\">局限与诚实</h2>\n<p style=\"margin:0 0 1em 0;line-height:1.75;\">公众号导读不能替代论文阅读：我们不复述公式、不替作者下结论，也不把单篇论文写成行业终局。若摘要与你关心的细节有出入，请以 PDF 为准。</p>\n<section style=\"margin-top:1.4em;\"><h2 style=\"margin:0 0 0.5em;\">参考资料</h2><ol style=\"line-height:1.7;\"><li>Zhou et al., WebArena, arXiv:2307.13854; ICLR 2024.</li><li>https://arxiv.org/abs/2307.13854（阅读原文请以 PDF 与页面版本为准）</li><li>封面图为占位图（picsum.photos 不同 seed），仅作版式区分；正式发文可替换为自有版权图。</li></ol></section>",
+  "source_url": "https://arxiv.org/abs/2307.13854",
   "references": [
-    "Zhou et al., WebArena: A Realistic Web Environment for Building Autonomous Agents, arXiv:2307.13854; ICLR 2024",
-    "整理自公开论文信息；细节请以原文与官方页面为准。"
+    "Zhou et al., WebArena, arXiv:2307.13854; ICLR 2024.",
+    "https://arxiv.org/abs/2307.13854"
   ],
   "wechat": {
     "open_comment": 1,
     "only_fans_can_comment": 0,
-    "thumb_media_id": ""
+    "thumb_media_id": "sG-p835ZNkREHwdlAZhpduRKUZSuRbnejJi_SSVbtDD5PmVLfytzjVjz9DaOBIni"
   },
   "metadata": {
-    "generated_by": "write-skill-academic-story+cursor-agent",
+    "generated_by": "arxiv-enriched+batch-quality-script",
     "style": "academic-story",
-    "topic": "webarena",
-    "generated_at": "2026-04-14T02:39:37.774Z"
+    "topic": "08-webarena",
+    "generated_at": "2026-04-14T02:47:01.035Z"
   }
 }

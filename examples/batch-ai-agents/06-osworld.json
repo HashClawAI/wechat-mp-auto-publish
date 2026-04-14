@@ -1,26 +1,28 @@
 {
   "title_options": [
-    "OSWorld：当评测回到真桌面",
-    "多模态智能体离「像人一样用电脑」还有多远",
-    "2404.07972：GUI 与操作知识的双重缺口"
+    "OSWorld：真操作系统桌面上的多模态智能体大考",
+    "NeurIPS 2024：人类与模型在开放任务上的差距意味着什么",
+    "读 2404.07972：GUI 接地与操作知识为何卡住"
   ],
-  "standfirst": "桌面不是网页玩具箱；窗口、焦点与隐式状态会吃掉最漂亮的演示。",
-  "digest": "OSWorld 在真实操作系统环境里评测开放任务，揭示模型与人类在桌面任务成功率上的显著差距。",
+  "standfirst": "桌面不是网页 demo：焦点、权限与隐式状态会吃掉最漂亮的演示稿。",
+  "digest": "基于摘要：跨 Ubuntu/Windows/macOS 的开放任务基准，执行式评测与真实应用工作流。",
   "author": "HashClaw",
-  "article": "arXiv:2404.07972（NeurIPS 2024）的 OSWorld 把评测推进真实电脑环境：跨应用、跨系统、需要执行反馈的任务。论文报告的人类与模型成功率差距，是对「智能体已可用」叙事的一盆冷水，也是更负责任的参照系。\n\n它把难点摊开：GUI 定位、操作知识、长链条任务中的错误传播。对做产品的人，这意味着桌面自动化不能只看 demo；对做研究的人，这意味着多模态与规划必须一起被衡量。\n\n它也提醒评测伦理与复现：真实环境涉及隐私与账户，工程化封装和去标识化同样重要。\n\n如果智能体要进入办公场景，先把 OSWorld 这类失败案例读进心里，比先看发布会更有用。\n\n真桌面会报复每一个省略的工程细节。",
+  "article": "（正文为 HTML 版，见渲染结果）",
+  "content_html": "<p style=\"margin:0 0 1em 0;line-height:1.75;\"><em>桌面不是网页 demo：焦点、权限与隐式状态会吃掉最漂亮的演示稿。</em></p>\n<h2 style=\"margin:1.2em 0 0.5em;\">开篇</h2>\n<p style=\"margin:0 0 1em 0;line-height:1.75;\">要做桌面自动化，先把「看得见」和「点得准」分开测，再谈端到端英雄叙事。</p>\n<p style=\"margin:0 0 1em 0;line-height:1.75;\">下面这篇稿子的「硬信息」来自 arXiv 元数据：英文标题、作者名单、官方摘要文字（略有截断）。中文部分是我们为公众号读者写的导读与衔接，不是论文译文全文；若你要写进研报或对外材料，请回到原文核对定义、符号与结论。</p>\n<h2 style=\"margin:1.2em 0 0.5em;\">论文卡片</h2>\n<p style=\"margin:0 0 0.5em 0;line-height:1.75;\"><strong>英文题名</strong>：OSWorld: Benchmarking Multimodal Agents for Open-Ended Tasks in Real Computer Environments</p>\n<p style=\"margin:0 0 0.5em 0;line-height:1.75;\"><strong>作者</strong>：Tianbao Xie、Danyang Zhang、Jixuan Chen、Xiaochuan Li、Siheng Zhao、Ruisheng Cao、Toh Jing Hua、Zhoujun Cheng、Dongchan Shin、Fangyu Lei、Yitao Liu、Yiheng Xu、Shuyan Zhou、Silvio Savarese、Caiming Xiong、Victor Zhong、Tao Yu</p>\n<p style=\"margin:0 0 0.5em 0;line-height:1.75;\"><strong>arXiv 记录日期</strong>：2024-04-11T17:56:05Z</p>\n<p style=\"margin:0 0 1em 0;line-height:1.75;\"><strong>备注</strong>：51 pages, 21 figures</p>\n<h2 style=\"margin:1.2em 0 0.5em;\">摘要摘录（英文）</h2>\n<blockquote style=\"margin:0 0 1em 0;padding:0.8em 1em;border-left:4px solid #2d6cdf;background:#f7f9fc;font-size:95%;line-height:1.65;\">Autonomous agents that accomplish complex computer tasks with minimal human interventions have the potential to transform human-computer interaction, significantly enhancing accessibility and productivity. However, existing benchmarks either lack an interactive environment or are limited to environments specific to certain applications or domains, failing to reflect the diverse and complex nature of real-world computer use, thereby limiting the scope of tasks and agent scalability. To address this issue, we introduce OSWorld, the first-of-its-kind scalable, real computer environment for multimodal agents, supporting task setup, execution-based evaluation, and interactive learning across various operating systems such as Ubuntu, Windows, and macOS. OSWorld can serve as a unified, integrated computer environment for assessing open-ended computer tasks that involve arbitrary applications. B…</blockquote>\n<p style=\"margin:0 0 1em 0;line-height:1.75;\">如果你不习惯读英文摘要，可以只做一件事：把摘要里反复出现的「动词」圈出来——是 scale、是 train、是 tool、还是 collaborate。它们往往对应团队真正要投入工程化的位置。</p>\n<h2 style=\"margin:1.2em 0 0.5em;\">读法建议</h2>\n<p style=\"margin:0 0 0.6em 0;line-height:1.75;\">第一遍只回答三个问题：这篇工作定义的「任务」是什么？它把「成功」量化成什么信号？它明确承认的局限是什么？</p>\n<p style=\"margin:0 0 0.6em 0;line-height:1.75;\">第二遍再把它映射到你的场景：数据权限、工具链、评测集、以及失败时能不能回滚。没有回滚设计的智能体，只是把事故从「人点错」迁移成「模型点错」。</p>\n<p style=\"margin:0 0 1em 0;line-height:1.75;\">第三遍再去追引用树：综述类论文尤其会把读者带到更大的一片文献海里；别在第一次阅读时就要求自己「全部读完」，先固定两三个最值得跟进的分支。</p>\n<h2 style=\"margin:1.2em 0 0.5em;\">局限与诚实</h2>\n<p style=\"margin:0 0 1em 0;line-height:1.75;\">公众号导读不能替代论文阅读：我们不复述公式、不替作者下结论，也不把单篇论文写成行业终局。若摘要与你关心的细节有出入，请以 PDF 为准。</p>\n<section style=\"margin-top:1.4em;\"><h2 style=\"margin:0 0 0.5em;\">参考资料</h2><ol style=\"line-height:1.7;\"><li>Xie et al., OSWorld, arXiv:2404.07972; NeurIPS 2024.</li><li>https://arxiv.org/abs/2404.07972（阅读原文请以 PDF 与页面版本为准）</li><li>封面图为占位图（picsum.photos 不同 seed），仅作版式区分；正式发文可替换为自有版权图。</li></ol></section>",
+  "source_url": "https://arxiv.org/abs/2404.07972",
   "references": [
-    "Xie et al., OSWorld: Benchmarking Multimodal Agents for Open-Ended Tasks in Real Computer Environments, arXiv:2404.07972; NeurIPS 2024",
-    "整理自公开论文信息；细节请以原文与官方页面为准。"
+    "Xie et al., OSWorld, arXiv:2404.07972; NeurIPS 2024.",
+    "https://arxiv.org/abs/2404.07972"
   ],
   "wechat": {
     "open_comment": 1,
     "only_fans_can_comment": 0,
-    "thumb_media_id": ""
+    "thumb_media_id": "sG-p835ZNkREHwdlAZhpdpA2IPT-UizhaLRYJtv_YPWk1J_-WWUJtT_GFDkFNW5w"
   },
   "metadata": {
-    "generated_by": "write-skill-academic-story+cursor-agent",
+    "generated_by": "arxiv-enriched+batch-quality-script",
     "style": "academic-story",
-    "topic": "osworld-gui",
-    "generated_at": "2026-04-14T02:39:37.773Z"
+    "topic": "06-osworld",
+    "generated_at": "2026-04-14T02:46:45.027Z"
   }
 }

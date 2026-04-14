@@ -1,26 +1,28 @@
 {
   "title_options": [
-    "ReAct：推理与行动交错的那条细线",
-    "先想一步再做一步：2210.03629 为什么仍值得读",
-    "工具循环里，最老的问题仍是何时停"
+    "ReAct：交错轨迹如何把「想」和「做」绑进日志",
+    "ICLR 2023：Yao 等的 ReAct 今天仍是工具循环的语法糖吗",
+    "读 2210.03629：停止条件与权限仍是外置难题"
   ],
-  "standfirst": "你以为自己在写提示词，其实往往在写一台没有刹车踏板的行为机。",
-  "digest": "ReAct 将推理轨迹与行动交错，为后续工具型智能体提供经典范式；今天读它，是为了理解默认行为从何而来。",
+  "standfirst": "没有审计轨迹的行动，只是黑箱在替你冒险。",
+  "digest": "基于摘要：将推理与行动协同生成，以交错轨迹提升语言模型规划与工具使用表现。",
   "author": "HashClaw",
-  "article": "ReAct 的名字把两件事绑在一起：Reasoning 与 Acting。arXiv:2210.03629 提出的交错轨迹，让模型在生成下一步动作前，先把中间思考写出来——这在工程上极像「可审计的日志」。\n\n今天各类智能体框架里常见的循环：观察、思考、调用工具、再观察，很大程度上是对这条范式的工程化放大。读原文的意义在于：你会看到哪些部分是研究贡献，哪些部分是后来人加的护栏。\n\n它的边界同样清晰：思考链可被诱导、工具权限过大时会放大错误、停止条件与预算控制必须外置。把 ReAct 当圣经会出事，把它当历史坐标会省事。\n\n若你在设计系统，问自己：没有模型自白，我还能不能追责？没有人工阈值，成本会不会在夜里失控？\n\n范式会过时，但「可交错、可中断、可审计」的需求不会。",
+  "article": "（正文为 HTML 版，见渲染结果）",
+  "content_html": "<p style=\"margin:0 0 1em 0;line-height:1.75;\"><em>没有审计轨迹的行动，只是黑箱在替你冒险。</em></p>\n<h2 style=\"margin:1.2em 0 0.5em;\">开篇</h2>\n<p style=\"margin:0 0 1em 0;line-height:1.75;\">ReAct 的价值在「可读的中间态」；工程上要把预算、权限与中断写进外层控制器。</p>\n<p style=\"margin:0 0 1em 0;line-height:1.75;\">下面这篇稿子的「硬信息」来自 arXiv 元数据：英文标题、作者名单、官方摘要文字（略有截断）。中文部分是我们为公众号读者写的导读与衔接，不是论文译文全文；若你要写进研报或对外材料，请回到原文核对定义、符号与结论。</p>\n<h2 style=\"margin:1.2em 0 0.5em;\">论文卡片</h2>\n<p style=\"margin:0 0 0.5em 0;line-height:1.75;\"><strong>英文题名</strong>：ReAct: Synergizing Reasoning and Acting in Language Models</p>\n<p style=\"margin:0 0 0.5em 0;line-height:1.75;\"><strong>作者</strong>：Shunyu Yao、Jeffrey Zhao、Dian Yu、Nan Du、Izhak Shafran、Karthik Narasimhan、Yuan Cao</p>\n<p style=\"margin:0 0 0.5em 0;line-height:1.75;\"><strong>arXiv 记录日期</strong>：2022-10-06T01:00:32Z</p>\n<p style=\"margin:0 0 1em 0;line-height:1.75;\"><strong>备注</strong>：v3 is the ICLR camera ready version with some typos fixed. Project site with code: https://react-lm.github.io</p>\n<h2 style=\"margin:1.2em 0 0.5em;\">摘要摘录（英文）</h2>\n<blockquote style=\"margin:0 0 1em 0;padding:0.8em 1em;border-left:4px solid #2d6cdf;background:#f7f9fc;font-size:95%;line-height:1.65;\">While large language models (LLMs) have demonstrated impressive capabilities across tasks in language understanding and interactive decision making, their abilities for reasoning (e.g. chain-of-thought prompting) and acting (e.g. action plan generation) have primarily been studied as separate topics. In this paper, we explore the use of LLMs to generate both reasoning traces and task-specific actions in an interleaved manner, allowing for greater synergy between the two: reasoning traces help the model induce, track, and update action plans as well as handle exceptions, while actions allow it to interface with external sources, such as knowledge bases or environments, to gather additional information. We apply our approach, named ReAct, to a diverse set of language and decision making tasks and demonstrate its effectiveness over state-of-the-art baselines, as well as improved human inter…</blockquote>\n<p style=\"margin:0 0 1em 0;line-height:1.75;\">如果你不习惯读英文摘要，可以只做一件事：把摘要里反复出现的「动词」圈出来——是 scale、是 train、是 tool、还是 collaborate。它们往往对应团队真正要投入工程化的位置。</p>\n<h2 style=\"margin:1.2em 0 0.5em;\">读法建议</h2>\n<p style=\"margin:0 0 0.6em 0;line-height:1.75;\">第一遍只回答三个问题：这篇工作定义的「任务」是什么？它把「成功」量化成什么信号？它明确承认的局限是什么？</p>\n<p style=\"margin:0 0 0.6em 0;line-height:1.75;\">第二遍再把它映射到你的场景：数据权限、工具链、评测集、以及失败时能不能回滚。没有回滚设计的智能体，只是把事故从「人点错」迁移成「模型点错」。</p>\n<p style=\"margin:0 0 1em 0;line-height:1.75;\">第三遍再去追引用树：综述类论文尤其会把读者带到更大的一片文献海里；别在第一次阅读时就要求自己「全部读完」，先固定两三个最值得跟进的分支。</p>\n<h2 style=\"margin:1.2em 0 0.5em;\">局限与诚实</h2>\n<p style=\"margin:0 0 1em 0;line-height:1.75;\">公众号导读不能替代论文阅读：我们不复述公式、不替作者下结论，也不把单篇论文写成行业终局。若摘要与你关心的细节有出入，请以 PDF 为准。</p>\n<section style=\"margin-top:1.4em;\"><h2 style=\"margin:0 0 0.5em;\">参考资料</h2><ol style=\"line-height:1.7;\"><li>Yao et al., ReAct, arXiv:2210.03629; ICLR 2023.</li><li>https://arxiv.org/abs/2210.03629（阅读原文请以 PDF 与页面版本为准）</li><li>封面图为占位图（picsum.photos 不同 seed），仅作版式区分；正式发文可替换为自有版权图。</li></ol></section>",
+  "source_url": "https://arxiv.org/abs/2210.03629",
   "references": [
-    "Yao et al., ReAct: Synergizing Reasoning and Acting in Language Models, arXiv:2210.03629; ICLR 2023",
-    "整理自公开论文信息；细节请以原文与官方页面为准。"
+    "Yao et al., ReAct, arXiv:2210.03629; ICLR 2023.",
+    "https://arxiv.org/abs/2210.03629"
   ],
   "wechat": {
     "open_comment": 1,
     "only_fans_can_comment": 0,
-    "thumb_media_id": ""
+    "thumb_media_id": "sG-p835ZNkREHwdlAZhpdtwk4Wfk_UW0OipXi7fYmV5118ZF_hiRlZDQjAsDjrBz"
   },
   "metadata": {
-    "generated_by": "write-skill-academic-story+cursor-agent",
+    "generated_by": "arxiv-enriched+batch-quality-script",
     "style": "academic-story",
-    "topic": "react",
-    "generated_at": "2026-04-14T02:39:37.773Z"
+    "topic": "04-react",
+    "generated_at": "2026-04-14T02:46:29.082Z"
   }
 }

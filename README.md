@@ -21,6 +21,13 @@
 - **`scripts/import-skill-output.mjs`**：把写作 skill 的 JSON 输出转换成 publish repo 可直接消费的文章包。
 - **`scripts/publish-from-skill.mjs`**：一条命令串起 import → render → publish，适合直接吃 skill 输出。
 - **`scripts/upload-media.mjs`**：`thumb` 上传永久素材得到封面 **`media_id`**；`inline` 上传正文插图得到微信 **`url`**（用于 HTML `<img src>`）。
+- **`scripts/regenerate-batch-quality.mjs`**：按 arXiv id **拉取真实元数据与英文摘要**，生成长版中文 HTML（导读 + 摘录 + 读法建议），并为每篇下载 **不同 seed** 的占位封面图上传为 **独立 `thumb_media_id`**（picsum，仅作版式区分；正式发文请换自有版权图）。
+
+### 内容质量说明（重要）
+
+- **「写作 skill」的完整执行**指：在 Cursor 里由 Agent **通读** `article-writing-academic-story/SKILL.md`，再针对单篇做采访式扩写、改稿与事实核对；**不是**仓库里某条一键脚本自动等价替代。
+- 早期示例里的 **`generate-batch-ai-agent-articles.mjs`** 为**短模板**，适合打通流水线，不适合当最终稿。
+- 若需要「可发表的深度」：请对**每一篇**单独开任务，引用 arXiv / PDF 段落，或先跑 `node scripts/regenerate-batch-quality.mjs` 再人工改第二稿。
 
 ---
 

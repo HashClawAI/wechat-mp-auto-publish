@@ -1,26 +1,28 @@
 {
   "title_options": [
-    "AutoGen：多智能体会话如何变成应用脚手架",
-    "把对话当作编程接口之后，组织边界在哪里",
-    "2308.08155：框架热背后仍要回答的治理问题"
+    "AutoGen：多智能体会话作为应用脚手架意味着什么",
+    "对话式编排：原型快了，治理慢了",
+    "读 2308.08155：谁对最终动作签字"
   ],
-  "standfirst": "当对话成为编排语言，最容易被忽略的是谁对最终动作负责。",
-  "digest": "AutoGen 以多智能体对话为核心抽象，推动 LLM 应用的可编排化；落地时需关注权限、审计与成本。",
+  "standfirst": "编排越灵活，责任越要像合同条款一样写清。",
+  "digest": "基于摘要：以多智能体对话框架支持复杂 LLM 应用的编排与工具使用。",
   "author": "HashClaw",
-  "article": "arXiv:2308.08155 的 AutoGen 把多智能体对话推到应用层：不同角色、不同系统提示、不同工具边界，可以用对话式工作流拼装。它降低的是原型成本，不是风险成本。\n\n对团队而言，这类框架的价值在于快速试验协作拓扑；代价在于调试复杂度随角色数上升，以及「自动」二字对非技术同事的误导。\n\n治理问题会被放大：谁能发起金融操作？谁能访问客户数据？失败时如何归因？日志是否足以审计？\n\n框架解决的是连接，不负责替你写制度。\n\n把 AutoGen 当作脚手架很合适；把它当作免审的自动化，就会在某个周五晚上收到账单与律师函。\n\n编排越灵活，责任越要写清。",
+  "article": "（正文为 HTML 版，见渲染结果）",
+  "content_html": "<p style=\"margin:0 0 1em 0;line-height:1.75;\"><em>编排越灵活，责任越要像合同条款一样写清。</em></p>\n<h2 style=\"margin:1.2em 0 0.5em;\">开篇</h2>\n<p style=\"margin:0 0 1em 0;line-height:1.75;\">把角色、权限、审计与预算外置，框架才能从玩具进生产。</p>\n<p style=\"margin:0 0 1em 0;line-height:1.75;\">下面这篇稿子的「硬信息」来自 arXiv 元数据：英文标题、作者名单、官方摘要文字（略有截断）。中文部分是我们为公众号读者写的导读与衔接，不是论文译文全文；若你要写进研报或对外材料，请回到原文核对定义、符号与结论。</p>\n<h2 style=\"margin:1.2em 0 0.5em;\">论文卡片</h2>\n<p style=\"margin:0 0 0.5em 0;line-height:1.75;\"><strong>英文题名</strong>：AutoGen: Enabling Next-Gen LLM Applications via Multi-Agent Conversation</p>\n<p style=\"margin:0 0 0.5em 0;line-height:1.75;\"><strong>作者</strong>：Qingyun Wu、Gagan Bansal、Jieyu Zhang、Yiran Wu、Beibin Li、Erkang Zhu、Li Jiang、Xiaoyun Zhang、Shaokun Zhang、Jiale Liu、Ahmed Hassan Awadallah、Ryen W White、Doug Burger、Chi Wang</p>\n<p style=\"margin:0 0 0.5em 0;line-height:1.75;\"><strong>arXiv 记录日期</strong>：2023-08-16T05:57:52Z</p>\n<p style=\"margin:0 0 1em 0;line-height:1.75;\"><strong>备注</strong>：43 pages (10 pages for the main text, 3 pages for references, and 30 pages for appendices)</p>\n<h2 style=\"margin:1.2em 0 0.5em;\">摘要摘录（英文）</h2>\n<blockquote style=\"margin:0 0 1em 0;padding:0.8em 1em;border-left:4px solid #2d6cdf;background:#f7f9fc;font-size:95%;line-height:1.65;\">AutoGen is an open-source framework that allows developers to build LLM applications via multiple agents that can converse with each other to accomplish tasks. AutoGen agents are customizable, conversable, and can operate in various modes that employ combinations of LLMs, human inputs, and tools. Using AutoGen, developers can also flexibly define agent interaction behaviors. Both natural language and computer code can be used to program flexible conversation patterns for different applications. AutoGen serves as a generic infrastructure to build diverse applications of various complexities and LLM capacities. Empirical studies demonstrate the effectiveness of the framework in many example applications, with domains ranging from mathematics, coding, question answering, operations research, online decision-making, entertainment, etc.</blockquote>\n<p style=\"margin:0 0 1em 0;line-height:1.75;\">如果你不习惯读英文摘要，可以只做一件事：把摘要里反复出现的「动词」圈出来——是 scale、是 train、是 tool、还是 collaborate。它们往往对应团队真正要投入工程化的位置。</p>\n<h2 style=\"margin:1.2em 0 0.5em;\">读法建议</h2>\n<p style=\"margin:0 0 0.6em 0;line-height:1.75;\">第一遍只回答三个问题：这篇工作定义的「任务」是什么？它把「成功」量化成什么信号？它明确承认的局限是什么？</p>\n<p style=\"margin:0 0 0.6em 0;line-height:1.75;\">第二遍再把它映射到你的场景：数据权限、工具链、评测集、以及失败时能不能回滚。没有回滚设计的智能体，只是把事故从「人点错」迁移成「模型点错」。</p>\n<p style=\"margin:0 0 1em 0;line-height:1.75;\">第三遍再去追引用树：综述类论文尤其会把读者带到更大的一片文献海里；别在第一次阅读时就要求自己「全部读完」，先固定两三个最值得跟进的分支。</p>\n<h2 style=\"margin:1.2em 0 0.5em;\">局限与诚实</h2>\n<p style=\"margin:0 0 1em 0;line-height:1.75;\">公众号导读不能替代论文阅读：我们不复述公式、不替作者下结论，也不把单篇论文写成行业终局。若摘要与你关心的细节有出入，请以 PDF 为准。</p>\n<section style=\"margin-top:1.4em;\"><h2 style=\"margin:0 0 0.5em;\">参考资料</h2><ol style=\"line-height:1.7;\"><li>Wu et al., AutoGen, arXiv:2308.08155.</li><li>https://arxiv.org/abs/2308.08155（阅读原文请以 PDF 与页面版本为准）</li><li>封面图为占位图（picsum.photos 不同 seed），仅作版式区分；正式发文可替换为自有版权图。</li></ol></section>",
+  "source_url": "https://arxiv.org/abs/2308.08155",
   "references": [
-    "Wu et al., AutoGen: Enabling Next-Gen LLM Applications via Multi-Agent Conversation, arXiv:2308.08155",
-    "整理自公开论文信息；细节请以原文与官方页面为准。"
+    "Wu et al., AutoGen, arXiv:2308.08155.",
+    "https://arxiv.org/abs/2308.08155"
   ],
   "wechat": {
     "open_comment": 1,
     "only_fans_can_comment": 0,
-    "thumb_media_id": ""
+    "thumb_media_id": "sG-p835ZNkREHwdlAZhpdlzAHKUNQSIKtbCXdKqM1iCy1Vj3Om0SQvJqtQRdMpCa"
   },
   "metadata": {
-    "generated_by": "write-skill-academic-story+cursor-agent",
+    "generated_by": "arxiv-enriched+batch-quality-script",
     "style": "academic-story",
-    "topic": "autogen-framework",
-    "generated_at": "2026-04-14T02:39:37.775Z"
+    "topic": "10-autogen",
+    "generated_at": "2026-04-14T02:47:18.511Z"
   }
 }

@@ -1,26 +1,28 @@
 {
   "title_options": [
-    "GAIA：对人类简单、对模型难的问题集",
-    "通用助手 benchmark 在测什么常识与工具",
-    "2311.12983：92% 与 15% 的差距说明了什么"
+    "GAIA：对人类「看起来简单」的问题，模型为何仍吃力",
+    "通用助手 benchmark：工具、浏览与多步推理被一起考",
+    "读 2311.12983：先别谈 AGI，先谈日常任务通过率"
   ],
-  "standfirst": "有些问题不难写，但难在把步骤做对：这正是通用助手的痛点。",
-  "digest": "GAIA 用现实问题测试推理、多模态与工具使用；论文报告人类与带插件 GPT-4 的显著差距（以论文表述为准）。",
+  "standfirst": "最难的不是炫技题，而是你以为「这还用教？」的那类事。",
+  "digest": "基于摘要：面向通用 AI 助手的问题集，强调多模态、工具与现实推理。",
   "author": "HashClaw",
-  "article": "arXiv:2311.12983 的 GAIA 把「对人类概念简单」的问题摆上来：需要多步推理、浏览与工具配合的现实任务。它的设计动机是避免只追人类越来越做不对的超难题，而忽略日常可用性。\n\n读这篇工作的正确姿势，是对照你们内部最常见的五类工单：订票、查资料、汇总表格、跨应用复制、以及需要验证来源的问答。GAIA 不是替代你们的评测集，而是提醒：通用性不是平均数的幻觉。\n\n它也把责任划清：插件与工具链引入新的失败面，安全与权限要同步设计。\n\n如果助手要走进工作流，先把「人类觉得简单」的任务做稳，比刷榜更接近价值。\n\n简单是难的另一种写法。",
+  "article": "（正文为 HTML 版，见渲染结果）",
+  "content_html": "<p style=\"margin:0 0 1em 0;line-height:1.75;\"><em>最难的不是炫技题，而是你以为「这还用教？」的那类事。</em></p>\n<h2 style=\"margin:1.2em 0 0.5em;\">开篇</h2>\n<p style=\"margin:0 0 1em 0;line-height:1.75;\">内部评测集里多加几道「秘书型」任务，往往比再加十道 MMLU 更有信息量。</p>\n<p style=\"margin:0 0 1em 0;line-height:1.75;\">下面这篇稿子的「硬信息」来自 arXiv 元数据：英文标题、作者名单、官方摘要文字（略有截断）。中文部分是我们为公众号读者写的导读与衔接，不是论文译文全文；若你要写进研报或对外材料，请回到原文核对定义、符号与结论。</p>\n<h2 style=\"margin:1.2em 0 0.5em;\">论文卡片</h2>\n<p style=\"margin:0 0 0.5em 0;line-height:1.75;\"><strong>英文题名</strong>：GAIA: a benchmark for General AI Assistants</p>\n<p style=\"margin:0 0 0.5em 0;line-height:1.75;\"><strong>作者</strong>：Grégoire Mialon、Clémentine Fourrier、Craig Swift、Thomas Wolf、Yann LeCun、Thomas Scialom</p>\n<p style=\"margin:0 0 0.5em 0;line-height:1.75;\"><strong>arXiv 记录日期</strong>：2023-11-21T20:34:47Z</p>\n<p style=\"margin:0 0 1em 0;line-height:1.75;\"></p>\n<h2 style=\"margin:1.2em 0 0.5em;\">摘要摘录（英文）</h2>\n<blockquote style=\"margin:0 0 1em 0;padding:0.8em 1em;border-left:4px solid #2d6cdf;background:#f7f9fc;font-size:95%;line-height:1.65;\">We introduce GAIA, a benchmark for General AI Assistants that, if solved, would represent a milestone in AI research. GAIA proposes real-world questions that require a set of fundamental abilities such as reasoning, multi-modality handling, web browsing, and generally tool-use proficiency. GAIA questions are conceptually simple for humans yet challenging for most advanced AIs: we show that human respondents obtain 92\\% vs. 15\\% for GPT-4 equipped with plugins. This notable performance disparity contrasts with the recent trend of LLMs outperforming humans on tasks requiring professional skills in e.g. law or chemistry. GAIA's philosophy departs from the current trend in AI benchmarks suggesting to target tasks that are ever more difficult for humans. We posit that the advent of Artificial General Intelligence (AGI) hinges on a system's capability to exhibit similar robustness as the avera…</blockquote>\n<p style=\"margin:0 0 1em 0;line-height:1.75;\">如果你不习惯读英文摘要，可以只做一件事：把摘要里反复出现的「动词」圈出来——是 scale、是 train、是 tool、还是 collaborate。它们往往对应团队真正要投入工程化的位置。</p>\n<h2 style=\"margin:1.2em 0 0.5em;\">读法建议</h2>\n<p style=\"margin:0 0 0.6em 0;line-height:1.75;\">第一遍只回答三个问题：这篇工作定义的「任务」是什么？它把「成功」量化成什么信号？它明确承认的局限是什么？</p>\n<p style=\"margin:0 0 0.6em 0;line-height:1.75;\">第二遍再把它映射到你的场景：数据权限、工具链、评测集、以及失败时能不能回滚。没有回滚设计的智能体，只是把事故从「人点错」迁移成「模型点错」。</p>\n<p style=\"margin:0 0 1em 0;line-height:1.75;\">第三遍再去追引用树：综述类论文尤其会把读者带到更大的一片文献海里；别在第一次阅读时就要求自己「全部读完」，先固定两三个最值得跟进的分支。</p>\n<h2 style=\"margin:1.2em 0 0.5em;\">局限与诚实</h2>\n<p style=\"margin:0 0 1em 0;line-height:1.75;\">公众号导读不能替代论文阅读：我们不复述公式、不替作者下结论，也不把单篇论文写成行业终局。若摘要与你关心的细节有出入，请以 PDF 为准。</p>\n<section style=\"margin-top:1.4em;\"><h2 style=\"margin:0 0 0.5em;\">参考资料</h2><ol style=\"line-height:1.7;\"><li>Mialon et al., GAIA, arXiv:2311.12983.</li><li>https://arxiv.org/abs/2311.12983（阅读原文请以 PDF 与页面版本为准）</li><li>封面图为占位图（picsum.photos 不同 seed），仅作版式区分；正式发文可替换为自有版权图。</li></ol></section>",
+  "source_url": "https://arxiv.org/abs/2311.12983",
   "references": [
-    "Mialon et al., GAIA: A Benchmark for General AI Assistants, arXiv:2311.12983",
-    "整理自公开论文信息；细节请以原文与官方页面为准。"
+    "Mialon et al., GAIA, arXiv:2311.12983.",
+    "https://arxiv.org/abs/2311.12983"
   ],
   "wechat": {
     "open_comment": 1,
     "only_fans_can_comment": 0,
-    "thumb_media_id": ""
+    "thumb_media_id": "sG-p835ZNkREHwdlAZhpdgpoB6JGRSnwwrLGC9FlPmt6mIwqRBIGAd0Kkff3hAuk"
   },
   "metadata": {
-    "generated_by": "write-skill-academic-story+cursor-agent",
+    "generated_by": "arxiv-enriched+batch-quality-script",
     "style": "academic-story",
-    "topic": "gaia-assistants",
-    "generated_at": "2026-04-14T02:39:37.774Z"
+    "topic": "09-gaia",
+    "generated_at": "2026-04-14T02:47:09.104Z"
   }
 }

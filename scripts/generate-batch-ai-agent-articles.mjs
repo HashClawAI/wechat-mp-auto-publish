@@ -1,6 +1,7 @@
 /**
- * One-off generator: 10 skill-output JSON files for batch WeChat drafts.
- * Sources are real arXiv / venue identifiers only (no fabricated metrics).
+ * Legacy short-template batch (10 JSON). For higher quality use instead:
+ *   node scripts/regenerate-batch-quality.mjs
+ * which pulls arXiv abstracts + unique placeholder covers.
  */
 import { mkdirSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";

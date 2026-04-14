@@ -1,26 +1,28 @@
 {
   "title_options": [
-    "多智能体不是群聊：通信视角把乱象说透",
-    "Beyond Self-Talk：LLM 多智能体系统缺哪块协议",
-    "当模型们开始协作，瓶颈往往在消息而不是参数"
+    "多智能体通信：Beyond Self-Talk 在拆什么积木",
+    "LLM 多智能体：协议比模型更决定上限",
+    "读 2502.14321：把消息当作一等公民"
   ],
-  "standfirst": "把多智能体想成「会说话的进程」，你会立刻看见通信成本、信任边界与失败模式。",
-  "digest": "2025 年通信中心综述梳理多智能体系统的架构、协议与评测缺口，适合负责编排与安全的工程负责人。",
+  "standfirst": "协作失败时，人们怪模型；论文更可能怪通道与协议。",
+  "digest": "基于 arXiv 条目：从通信中心视角综述多智能体系统的架构、策略与评测挑战。",
   "author": "HashClaw",
-  "article": "很多人把多智能体系统想象成开黑：模型越多，越强。工程现场更常见的画面是：消息风暴、互相覆盖的上下文、以及没人负责的中间态。\n\narXiv:2502.14321 从通信视角切入，讨论系统层协议与内部策略如何共同决定稳定性。它提醒一件朴素的事：协作不是自然发生的，它需要约束——谁可以写状态、谁可以发起工具调用、失败时如何回滚。\n\n对团队而言，这意味着在设计阶段就要写清「消息契约」，而不是上线后再用日志考古。安全与成本也藏在通信里：重复推理、循环辩论、被恶意提示劫持的通道，都是真实风险。\n\n它不会给你一套万能框架，但会让你在评审架构时多问几句：这条消息必要吗？这个权限是否过大？这个失败路径有没有 owner？\n\n协作的优雅，往往来自克制的协议，而不是更多的模型。",
+  "article": "（正文为 HTML 版，见渲染结果）",
+  "content_html": "<p style=\"margin:0 0 1em 0;line-height:1.75;\"><em>协作失败时，人们怪模型；论文更可能怪通道与协议。</em></p>\n<h2 style=\"margin:1.2em 0 0.5em;\">开篇</h2>\n<p style=\"margin:0 0 1em 0;line-height:1.75;\">当你设计多 Agent 流水线时，先画消息图与失败回滚，再讨论 temperature。</p>\n<p style=\"margin:0 0 1em 0;line-height:1.75;\">下面这篇稿子的「硬信息」来自 arXiv 元数据：英文标题、作者名单、官方摘要文字（略有截断）。中文部分是我们为公众号读者写的导读与衔接，不是论文译文全文；若你要写进研报或对外材料，请回到原文核对定义、符号与结论。</p>\n<h2 style=\"margin:1.2em 0 0.5em;\">论文卡片</h2>\n<p style=\"margin:0 0 0.5em 0;line-height:1.75;\"><strong>英文题名</strong>：Beyond Self-Talk: A Communication-Centric Survey of LLM-Based Multi-Agent Systems</p>\n<p style=\"margin:0 0 0.5em 0;line-height:1.75;\"><strong>作者</strong>：Bingyu Yan、Zhibo Zhou、Litian Zhang、Lian Zhang、Ziyi Zhou、Dezhuang Miao、Zhoujun Li、Chaozhuo Li、Xiaoming Zhang</p>\n<p style=\"margin:0 0 0.5em 0;line-height:1.75;\"><strong>arXiv 记录日期</strong>：2025-02-20T07:18:34Z</p>\n<p style=\"margin:0 0 1em 0;line-height:1.75;\"></p>\n<h2 style=\"margin:1.2em 0 0.5em;\">摘要摘录（英文）</h2>\n<blockquote style=\"margin:0 0 1em 0;padding:0.8em 1em;border-left:4px solid #2d6cdf;background:#f7f9fc;font-size:95%;line-height:1.65;\">Large language model-based multi-agent systems have recently gained significant attention due to their potential for complex, collaborative, and intelligent problem-solving capabilities. Existing surveys typically categorize LLM-based multi-agent systems (LLM-MAS) according to their application domains or architectures, overlooking the central role of communication in coordinating agent behaviors and interactions. To address this gap, this paper presents a comprehensive survey of LLM-MAS from a communication-centric perspective. Specifically, we propose a structured framework that integrates system-level communication (architecture, goals, and protocols) with system internal communication (strategies, paradigms, objects, and content), enabling a detailed exploration of how agents interact, negotiate, and achieve collective intelligence. Through an extensive analysis of recent literature,…</blockquote>\n<p style=\"margin:0 0 1em 0;line-height:1.75;\">如果你不习惯读英文摘要，可以只做一件事：把摘要里反复出现的「动词」圈出来——是 scale、是 train、是 tool、还是 collaborate。它们往往对应团队真正要投入工程化的位置。</p>\n<h2 style=\"margin:1.2em 0 0.5em;\">读法建议</h2>\n<p style=\"margin:0 0 0.6em 0;line-height:1.75;\">第一遍只回答三个问题：这篇工作定义的「任务」是什么？它把「成功」量化成什么信号？它明确承认的局限是什么？</p>\n<p style=\"margin:0 0 0.6em 0;line-height:1.75;\">第二遍再把它映射到你的场景：数据权限、工具链、评测集、以及失败时能不能回滚。没有回滚设计的智能体，只是把事故从「人点错」迁移成「模型点错」。</p>\n<p style=\"margin:0 0 1em 0;line-height:1.75;\">第三遍再去追引用树：综述类论文尤其会把读者带到更大的一片文献海里；别在第一次阅读时就要求自己「全部读完」，先固定两三个最值得跟进的分支。</p>\n<h2 style=\"margin:1.2em 0 0.5em;\">局限与诚实</h2>\n<p style=\"margin:0 0 1em 0;line-height:1.75;\">公众号导读不能替代论文阅读：我们不复述公式、不替作者下结论，也不把单篇论文写成行业终局。若摘要与你关心的细节有出入，请以 PDF 为准。</p>\n<section style=\"margin-top:1.4em;\"><h2 style=\"margin:0 0 0.5em;\">参考资料</h2><ol style=\"line-height:1.7;\"><li>arXiv:2502.14321 — Beyond Self-Talk (communication-centric survey).</li><li>https://arxiv.org/abs/2502.14321（阅读原文请以 PDF 与页面版本为准）</li><li>封面图为占位图（picsum.photos 不同 seed），仅作版式区分；正式发文可替换为自有版权图。</li></ol></section>",
+  "source_url": "https://arxiv.org/abs/2502.14321",
   "references": [
-    "arXiv:2502.14321 — Beyond Self-Talk: A Communication-Centric Survey of LLM-Based Multi-Agent Systems (2025)",
-    "整理自公开论文信息；细节请以原文与官方页面为准。"
+    "arXiv:2502.14321 — Beyond Self-Talk (communication-centric survey).",
+    "https://arxiv.org/abs/2502.14321"
   ],
   "wechat": {
     "open_comment": 1,
     "only_fans_can_comment": 0,
-    "thumb_media_id": ""
+    "thumb_media_id": "sG-p835ZNkREHwdlAZhpdqm_py_5Xo0prBjSruZFUmJGNArwskw-shZ1OSAjUPid"
   },
   "metadata": {
-    "generated_by": "write-skill-academic-story+cursor-agent",
+    "generated_by": "arxiv-enriched+batch-quality-script",
     "style": "academic-story",
-    "topic": "multi-agent-communication",
-    "generated_at": "2026-04-14T02:39:37.772Z"
+    "topic": "02-multi-agent-communication",
+    "generated_at": "2026-04-14T02:46:13.524Z"
   }
 }

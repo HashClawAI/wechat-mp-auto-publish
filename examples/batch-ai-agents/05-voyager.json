@@ -1,26 +1,28 @@
 {
   "title_options": [
-    "Voyager：在开放世界里用代码当手脚",
-    "Minecraft 里的终身学习智能体长什么样",
-    "2305.16291：技能库为什么会变成资产"
+    "Voyager：代码当技能、Minecraft 当压力锅",
+    "开放世界里的终身学习：技能库为什么像资产表",
+    "读 2305.16291：自动课程 + 迭代提示在学什么"
   ],
-  "standfirst": "开放世界最残酷之处，在于没有固定考纲；最迷人之处，也在于此。",
-  "digest": "Voyager 在 Minecraft 中把课程、可执行技能库与迭代提示结合，展示开放世界里的组合式学习与泛化思路。",
+  "standfirst": "像素世界里，失败便宜；真实业务里，失败昂贵——但问题形状相似。",
+  "digest": "基于摘要：开放世界具身智能体，自动课程、可执行技能库与迭代提示机制。",
   "author": "HashClaw",
-  "article": "arXiv:2305.16291 的 Voyager 把「终身学习」放进一个像素世界：自动课程、可累积的技能代码库、以及把环境反馈吃回去的迭代机制。它用代码作为行动空间，让能力以可组合的方式沉淀。\n\n对研究读者，这组设计讨论的是：记忆如何变成可复用资产，而不是一次性的长上下文。对工程读者，它提醒：没有技能沉淀的循环，只会把同样的错误以更贵的方式重复。\n\n它也把代价摊开：黑盒大模型调用、探索预算、失败路径的调试，都需要系统层面的约束。\n\n把开放世界当作思想实验，你会更谨慎地谈泛化：泛化不是口号，是可检索、可验证、可复用的行为碎片堆出来的。\n\n像素世界是玩具，但问题是真的。",
+  "article": "（正文为 HTML 版，见渲染结果）",
+  "content_html": "<p style=\"margin:0 0 1em 0;line-height:1.75;\"><em>像素世界里，失败便宜；真实业务里，失败昂贵——但问题形状相似。</em></p>\n<h2 style=\"margin:1.2em 0 0.5em;\">开篇</h2>\n<p style=\"margin:0 0 1em 0;line-height:1.75;\">把可复用技能沉淀成库，比把一切都塞进上下文更接近「组织记忆」。</p>\n<p style=\"margin:0 0 1em 0;line-height:1.75;\">下面这篇稿子的「硬信息」来自 arXiv 元数据：英文标题、作者名单、官方摘要文字（略有截断）。中文部分是我们为公众号读者写的导读与衔接，不是论文译文全文；若你要写进研报或对外材料，请回到原文核对定义、符号与结论。</p>\n<h2 style=\"margin:1.2em 0 0.5em;\">论文卡片</h2>\n<p style=\"margin:0 0 0.5em 0;line-height:1.75;\"><strong>英文题名</strong>：Voyager: An Open-Ended Embodied Agent with Large Language Models</p>\n<p style=\"margin:0 0 0.5em 0;line-height:1.75;\"><strong>作者</strong>：Guanzhi Wang、Yuqi Xie、Yunfan Jiang、Ajay Mandlekar、Chaowei Xiao、Yuke Zhu、Linxi Fan、Anima Anandkumar</p>\n<p style=\"margin:0 0 0.5em 0;line-height:1.75;\"><strong>arXiv 记录日期</strong>：2023-05-25T17:46:38Z</p>\n<p style=\"margin:0 0 1em 0;line-height:1.75;\"><strong>备注</strong>：Project website and open-source codebase: https://voyager.minedojo.org/</p>\n<h2 style=\"margin:1.2em 0 0.5em;\">摘要摘录（英文）</h2>\n<blockquote style=\"margin:0 0 1em 0;padding:0.8em 1em;border-left:4px solid #2d6cdf;background:#f7f9fc;font-size:95%;line-height:1.65;\">We introduce Voyager, the first LLM-powered embodied lifelong learning agent in Minecraft that continuously explores the world, acquires diverse skills, and makes novel discoveries without human intervention. Voyager consists of three key components: 1) an automatic curriculum that maximizes exploration, 2) an ever-growing skill library of executable code for storing and retrieving complex behaviors, and 3) a new iterative prompting mechanism that incorporates environment feedback, execution errors, and self-verification for program improvement. Voyager interacts with GPT-4 via blackbox queries, which bypasses the need for model parameter fine-tuning. The skills developed by Voyager are temporally extended, interpretable, and compositional, which compounds the agent's abilities rapidly and alleviates catastrophic forgetting. Empirically, Voyager shows strong in-context lifelong learning …</blockquote>\n<p style=\"margin:0 0 1em 0;line-height:1.75;\">如果你不习惯读英文摘要，可以只做一件事：把摘要里反复出现的「动词」圈出来——是 scale、是 train、是 tool、还是 collaborate。它们往往对应团队真正要投入工程化的位置。</p>\n<h2 style=\"margin:1.2em 0 0.5em;\">读法建议</h2>\n<p style=\"margin:0 0 0.6em 0;line-height:1.75;\">第一遍只回答三个问题：这篇工作定义的「任务」是什么？它把「成功」量化成什么信号？它明确承认的局限是什么？</p>\n<p style=\"margin:0 0 0.6em 0;line-height:1.75;\">第二遍再把它映射到你的场景：数据权限、工具链、评测集、以及失败时能不能回滚。没有回滚设计的智能体，只是把事故从「人点错」迁移成「模型点错」。</p>\n<p style=\"margin:0 0 1em 0;line-height:1.75;\">第三遍再去追引用树：综述类论文尤其会把读者带到更大的一片文献海里；别在第一次阅读时就要求自己「全部读完」，先固定两三个最值得跟进的分支。</p>\n<h2 style=\"margin:1.2em 0 0.5em;\">局限与诚实</h2>\n<p style=\"margin:0 0 1em 0;line-height:1.75;\">公众号导读不能替代论文阅读：我们不复述公式、不替作者下结论，也不把单篇论文写成行业终局。若摘要与你关心的细节有出入，请以 PDF 为准。</p>\n<section style=\"margin-top:1.4em;\"><h2 style=\"margin:0 0 0.5em;\">参考资料</h2><ol style=\"line-height:1.7;\"><li>Wang et al., Voyager, arXiv:2305.16291.</li><li>https://arxiv.org/abs/2305.16291（阅读原文请以 PDF 与页面版本为准）</li><li>封面图为占位图（picsum.photos 不同 seed），仅作版式区分；正式发文可替换为自有版权图。</li></ol></section>",
+  "source_url": "https://arxiv.org/abs/2305.16291",
   "references": [
-    "Wang et al., Voyager: An Open-Ended Embodied Agent with Large Language Models, arXiv:2305.16291",
-    "整理自公开论文信息；细节请以原文与官方页面为准。"
+    "Wang et al., Voyager, arXiv:2305.16291.",
+    "https://arxiv.org/abs/2305.16291"
   ],
   "wechat": {
     "open_comment": 1,
     "only_fans_can_comment": 0,
-    "thumb_media_id": ""
+    "thumb_media_id": "sG-p835ZNkREHwdlAZhpdgQ2_VYC4eah4QmnRvjav7DICP5ZqbNokUJf7zszfqgV"
   },
   "metadata": {
-    "generated_by": "write-skill-academic-story+cursor-agent",
+    "generated_by": "arxiv-enriched+batch-quality-script",
     "style": "academic-story",
-    "topic": "voyager-minecraft",
-    "generated_at": "2026-04-14T02:39:37.773Z"
+    "topic": "05-voyager",
+    "generated_at": "2026-04-14T02:46:37.394Z"
   }
 }

@@ -1,26 +1,28 @@
 {
   "title_options": [
-    "SWE-bench：把 GitHub 真问题摆上桌之后",
-    "真仓库、真 issue：语言模型离修 bug 还有多远",
-    "2310.06770：从基准看软件工程智能体"
+    "SWE-bench：真 issue 把「能写代码」拆成可测的几步",
+    "ICLR 2024：从 2294 个问题看语言模型修 bug 的短板",
+    "读 Jimenez 等：为什么 Docker 评测改变了叙事"
   ],
-  "standfirst": "当评测从玩具函数走向真实 issue，分数会难看，但难看得更有价值。",
-  "digest": "SWE-bench 用真实 Python 仓库 issue 评估模型改代码能力，论文揭示早期模型与真实工程之间巨大落差。",
+  "standfirst": "短题满分的人，未必能在仓库里活过第一轮 CI。",
+  "digest": "基于论文摘要：真实 GitHub issue、Fail-to-Pass 测试与多文件修改需求构成的软件工程基准。",
   "author": "HashClaw",
-  "article": "软件工程里有一种幻觉：模型在短代码题上漂亮，就能进仓库干活。SWE-bench 把问题换成真实 GitHub issue 与测试驱动的修复任务，让幻觉更难维持。\n\narXiv:2310.06770（ICLR 2024）描述的数据集规模与任务形态，迫使团队把「能写代码」细化为「能定位、能改、能通过测试、能处理跨文件依赖」。后续社区围绕它的改进与智能体框架，本质都是在补同一条证据链。\n\n对读者而言，这篇工作的启示是：别用会刷题的指标冒充能上线。要把智能体放进 CI、放进 code review、放进可回滚的发布流程里试。\n\n它也留下边界：基准再真，也只是快照；仓库生态、依赖地狱与企业私有代码，仍需要你们自己的评测集。\n\n把真问题摆上桌，是进步的开始，不是终点。",
+  "article": "（正文为 HTML 版，见渲染结果）",
+  "content_html": "<p style=\"margin:0 0 1em 0;line-height:1.75;\"><em>短题满分的人，未必能在仓库里活过第一轮 CI。</em></p>\n<h2 style=\"margin:1.2em 0 0.5em;\">开篇</h2>\n<p style=\"margin:0 0 1em 0;line-height:1.75;\">把智能体接进 PR 流程之前，先用 SWE-bench 类任务做「可执行诚实」的对照实验。</p>\n<p style=\"margin:0 0 1em 0;line-height:1.75;\">下面这篇稿子的「硬信息」来自 arXiv 元数据：英文标题、作者名单、官方摘要文字（略有截断）。中文部分是我们为公众号读者写的导读与衔接，不是论文译文全文；若你要写进研报或对外材料，请回到原文核对定义、符号与结论。</p>\n<h2 style=\"margin:1.2em 0 0.5em;\">论文卡片</h2>\n<p style=\"margin:0 0 0.5em 0;line-height:1.75;\"><strong>英文题名</strong>：SWE-bench: Can Language Models Resolve Real-World GitHub Issues?</p>\n<p style=\"margin:0 0 0.5em 0;line-height:1.75;\"><strong>作者</strong>：Carlos E. Jimenez、John Yang、Alexander Wettig、Shunyu Yao、Kexin Pei、Ofir Press、Karthik Narasimhan</p>\n<p style=\"margin:0 0 0.5em 0;line-height:1.75;\"><strong>arXiv 记录日期</strong>：2023-10-10T16:47:29Z</p>\n<p style=\"margin:0 0 1em 0;line-height:1.75;\"><strong>备注</strong>：Data, code, and leaderboard are available at https://www.swebench.com ICLR 2024, https://openreview.net/forum?id=VTF8yNQM66</p>\n<h2 style=\"margin:1.2em 0 0.5em;\">摘要摘录（英文）</h2>\n<blockquote style=\"margin:0 0 1em 0;padding:0.8em 1em;border-left:4px solid #2d6cdf;background:#f7f9fc;font-size:95%;line-height:1.65;\">Language models have outpaced our ability to evaluate them effectively, but for their future development it is essential to study the frontier of their capabilities. We find real-world software engineering to be a rich, sustainable, and challenging testbed for evaluating the next generation of language models. To this end, we introduce SWE-bench, an evaluation framework consisting of $2,294$ software engineering problems drawn from real GitHub issues and corresponding pull requests across $12$ popular Python repositories. Given a codebase along with a description of an issue to be resolved, a language model is tasked with editing the codebase to address the issue. Resolving issues in SWE-bench frequently requires understanding and coordinating changes across multiple functions, classes, and even files simultaneously, calling for models to interact with execution environments, process ext…</blockquote>\n<p style=\"margin:0 0 1em 0;line-height:1.75;\">如果你不习惯读英文摘要，可以只做一件事：把摘要里反复出现的「动词」圈出来——是 scale、是 train、是 tool、还是 collaborate。它们往往对应团队真正要投入工程化的位置。</p>\n<h2 style=\"margin:1.2em 0 0.5em;\">读法建议</h2>\n<p style=\"margin:0 0 0.6em 0;line-height:1.75;\">第一遍只回答三个问题：这篇工作定义的「任务」是什么？它把「成功」量化成什么信号？它明确承认的局限是什么？</p>\n<p style=\"margin:0 0 0.6em 0;line-height:1.75;\">第二遍再把它映射到你的场景：数据权限、工具链、评测集、以及失败时能不能回滚。没有回滚设计的智能体，只是把事故从「人点错」迁移成「模型点错」。</p>\n<p style=\"margin:0 0 1em 0;line-height:1.75;\">第三遍再去追引用树：综述类论文尤其会把读者带到更大的一片文献海里；别在第一次阅读时就要求自己「全部读完」，先固定两三个最值得跟进的分支。</p>\n<h2 style=\"margin:1.2em 0 0.5em;\">局限与诚实</h2>\n<p style=\"margin:0 0 1em 0;line-height:1.75;\">公众号导读不能替代论文阅读：我们不复述公式、不替作者下结论，也不把单篇论文写成行业终局。若摘要与你关心的细节有出入，请以 PDF 为准。</p>\n<section style=\"margin-top:1.4em;\"><h2 style=\"margin:0 0 0.5em;\">参考资料</h2><ol style=\"line-height:1.7;\"><li>Jimenez et al., SWE-bench, arXiv:2310.06770; ICLR 2024.</li><li>https://arxiv.org/abs/2310.06770（阅读原文请以 PDF 与页面版本为准）</li><li>封面图为占位图（picsum.photos 不同 seed），仅作版式区分；正式发文可替换为自有版权图。</li></ol></section>",
+  "source_url": "https://arxiv.org/abs/2310.06770",
   "references": [
-    "Jimenez et al., SWE-bench: Can Language Models Resolve Real-World GitHub Issues? arXiv:2310.06770; ICLR 2024",
-    "整理自公开论文信息；细节请以原文与官方页面为准。"
+    "Jimenez et al., SWE-bench, arXiv:2310.06770; ICLR 2024.",
+    "https://arxiv.org/abs/2310.06770"
   ],
   "wechat": {
     "open_comment": 1,
     "only_fans_can_comment": 0,
-    "thumb_media_id": ""
+    "thumb_media_id": "sG-p835ZNkREHwdlAZhpdrJ9PHTbvzs53VL6viqe8moyxdTRR8Z28odaWP7t33SJ"
   },
   "metadata": {
-    "generated_by": "write-skill-academic-story+cursor-agent",
+    "generated_by": "arxiv-enriched+batch-quality-script",
     "style": "academic-story",
-    "topic": "swe-bench",
-    "generated_at": "2026-04-14T02:39:37.773Z"
+    "topic": "03-swe-bench",
+    "generated_at": "2026-04-14T02:46:20.919Z"
   }
 }

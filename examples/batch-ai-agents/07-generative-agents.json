@@ -1,26 +1,28 @@
 {
   "title_options": [
-    "生成式智能体：记忆、反思与小镇上的涌现",
-    "当 25 个像素居民开始自己过日子",
-    "2304.03442：社会模拟里哪些组件缺一不可"
+    "生成式智能体：记忆、反思、规划如何拼出小镇社会性",
+    "UIST 2023：25 个像素居民与情人节派对实验",
+    "读 2304.03442：涌现之前先看消融"
   ],
-  "standfirst": "小镇很小，问题很大： believable 的行为从哪些机制长出来？",
-  "digest": "生成式智能体结合记忆、反思与规划，在沙盒小镇中展示类社会行为；论文用消融说明各模块贡献。",
+  "standfirst": "拟真不等于可信；沙盒里可爱，上线前要过治理与提示注入。",
+  "digest": "基于摘要：用自然语言记忆与反思支持行为规划，在沙盒小镇中展示互动社会行为。",
   "author": "HashClaw",
-  "article": "arXiv:2304.03442（UIST 2023）的生成式智能体把 LLM 放进一个可交互的模拟小镇：用自然语言记录经历，把经历压缩成更高层反思，再据此规划下一步。它用可控沙盒讨论「社会性」而不是空谈。\n\n对读者，最有力的部分往往不是派对故事本身，而是消融实验：观察、规划、反思各自缺了会怎样。它把「涌现」从修辞拉回可讨论的系统组件。\n\n边界同样重要：这是模拟，不是人类；拟真不等于伦理安全；规模化后提示注入与角色漂移仍是硬问题。\n\n若你做内容或游戏，你会看到叙事引擎的新可能；若你做企业智能体，你会更警惕把拟人当作信任。\n\nbelievable 是目标，不是许可证。",
+  "article": "（正文为 HTML 版，见渲染结果）",
+  "content_html": "<p style=\"margin:0 0 1em 0;line-height:1.75;\"><em>拟真不等于可信；沙盒里可爱，上线前要过治理与提示注入。</em></p>\n<h2 style=\"margin:1.2em 0 0.5em;\">开篇</h2>\n<p style=\"margin:0 0 1em 0;line-height:1.75;\">产品里若出现「人格」，就要有身份边界、日志与人工兜底，而不是只换皮肤。</p>\n<p style=\"margin:0 0 1em 0;line-height:1.75;\">下面这篇稿子的「硬信息」来自 arXiv 元数据：英文标题、作者名单、官方摘要文字（略有截断）。中文部分是我们为公众号读者写的导读与衔接，不是论文译文全文；若你要写进研报或对外材料，请回到原文核对定义、符号与结论。</p>\n<h2 style=\"margin:1.2em 0 0.5em;\">论文卡片</h2>\n<p style=\"margin:0 0 0.5em 0;line-height:1.75;\"><strong>英文题名</strong>：Generative Agents: Interactive Simulacra of Human Behavior</p>\n<p style=\"margin:0 0 0.5em 0;line-height:1.75;\"><strong>作者</strong>：Joon Sung Park、Joseph C. O'Brien、Carrie J. Cai、Meredith Ringel Morris、Percy Liang、Michael S. Bernstein</p>\n<p style=\"margin:0 0 0.5em 0;line-height:1.75;\"><strong>arXiv 记录日期</strong>：2023-04-07T01:55:19Z</p>\n<p style=\"margin:0 0 1em 0;line-height:1.75;\"></p>\n<h2 style=\"margin:1.2em 0 0.5em;\">摘要摘录（英文）</h2>\n<blockquote style=\"margin:0 0 1em 0;padding:0.8em 1em;border-left:4px solid #2d6cdf;background:#f7f9fc;font-size:95%;line-height:1.65;\">Believable proxies of human behavior can empower interactive applications ranging from immersive environments to rehearsal spaces for interpersonal communication to prototyping tools. In this paper, we introduce generative agents--computational software agents that simulate believable human behavior. Generative agents wake up, cook breakfast, and head to work; artists paint, while authors write; they form opinions, notice each other, and initiate conversations; they remember and reflect on days past as they plan the next day. To enable generative agents, we describe an architecture that extends a large language model to store a complete record of the agent's experiences using natural language, synthesize those memories over time into higher-level reflections, and retrieve them dynamically to plan behavior. We instantiate generative agents to populate an interactive sandbox environment in…</blockquote>\n<p style=\"margin:0 0 1em 0;line-height:1.75;\">如果你不习惯读英文摘要，可以只做一件事：把摘要里反复出现的「动词」圈出来——是 scale、是 train、是 tool、还是 collaborate。它们往往对应团队真正要投入工程化的位置。</p>\n<h2 style=\"margin:1.2em 0 0.5em;\">读法建议</h2>\n<p style=\"margin:0 0 0.6em 0;line-height:1.75;\">第一遍只回答三个问题：这篇工作定义的「任务」是什么？它把「成功」量化成什么信号？它明确承认的局限是什么？</p>\n<p style=\"margin:0 0 0.6em 0;line-height:1.75;\">第二遍再把它映射到你的场景：数据权限、工具链、评测集、以及失败时能不能回滚。没有回滚设计的智能体，只是把事故从「人点错」迁移成「模型点错」。</p>\n<p style=\"margin:0 0 1em 0;line-height:1.75;\">第三遍再去追引用树：综述类论文尤其会把读者带到更大的一片文献海里；别在第一次阅读时就要求自己「全部读完」，先固定两三个最值得跟进的分支。</p>\n<h2 style=\"margin:1.2em 0 0.5em;\">局限与诚实</h2>\n<p style=\"margin:0 0 1em 0;line-height:1.75;\">公众号导读不能替代论文阅读：我们不复述公式、不替作者下结论，也不把单篇论文写成行业终局。若摘要与你关心的细节有出入，请以 PDF 为准。</p>\n<section style=\"margin-top:1.4em;\"><h2 style=\"margin:0 0 0.5em;\">参考资料</h2><ol style=\"line-height:1.7;\"><li>Park et al., Generative Agents, arXiv:2304.03442; UIST 2023.</li><li>https://arxiv.org/abs/2304.03442（阅读原文请以 PDF 与页面版本为准）</li><li>封面图为占位图（picsum.photos 不同 seed），仅作版式区分；正式发文可替换为自有版权图。</li></ol></section>",
+  "source_url": "https://arxiv.org/abs/2304.03442",
   "references": [
-    "Park et al., Generative Agents: Interactive Simulacra of Human Behavior, arXiv:2304.03442; UIST 2023",
-    "整理自公开论文信息；细节请以原文与官方页面为准。"
+    "Park et al., Generative Agents, arXiv:2304.03442; UIST 2023.",
+    "https://arxiv.org/abs/2304.03442"
   ],
   "wechat": {
     "open_comment": 1,
     "only_fans_can_comment": 0,
-    "thumb_media_id": ""
+    "thumb_media_id": "sG-p835ZNkREHwdlAZhpdqtWQuORUPF1gAhXDuGL-O37KW2NY-XZE02RtC21ce75"
   },
   "metadata": {
-    "generated_by": "write-skill-academic-story+cursor-agent",
+    "generated_by": "arxiv-enriched+batch-quality-script",
     "style": "academic-story",
-    "topic": "generative-agents-sim",
-    "generated_at": "2026-04-14T02:39:37.774Z"
+    "topic": "07-generative-agents",
+    "generated_at": "2026-04-14T02:46:52.933Z"
   }
 }

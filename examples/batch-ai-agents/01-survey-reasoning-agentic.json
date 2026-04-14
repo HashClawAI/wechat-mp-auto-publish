@@ -1,26 +1,28 @@
 {
   "title_options": [
-    "推理与智能体：一份新地图把前沿摆上桌",
-    "从推理缩放谈到智能体系统，综述在画什么边界",
-    "2504.09037：LLM 推理前沿与智能体工作流"
+    "TMLR 综述：推理与智能体被放在同一张地图里",
+    "从 DeepSeek-R1 到 Deep Research：这篇综述怎么分区",
+    "读 2504.09037：别再把推理和工具混成一个词"
   ],
-  "standfirst": "当论文把推理与智能体放在同一张图里，你读到的不是口号，而是一套可对照研究议程的分区。",
-  "digest": "2025 年一篇系统综述把推理缩放、学习推理与智能体架构放在同一框架里讨论，适合想看清术语与脉络的读者。",
+  "standfirst": "你需要的不是更多名词，而是一套能对照文献与产品路线的坐标系。",
+  "digest": "基于 arXiv 摘要与作者列表：综述按「阶段×架构」梳理 LLM 推理与智能体工作流，并讨论学习式推理与多智能体协作趋势。",
   "author": "HashClaw",
-  "article": "凌晨读综述的人，最怕两件事：概念堆成山，以及每座山都自称最重要。\n\narXiv:2504.09037 这篇工作选择把「推理」拆成可讨论的前沿：推理时的缩放、学习去推理，以及把模型放进工具与协作流程里的智能体系统。它更像地图，而不是判决书——告诉你哪些方向在文献里被反复加固，哪些还只是工程直觉。\n\n读它的价值在于对齐语言：当你说智能体，是在说工具循环、规划器、还是多模型协同？当你说推理，是在说链式提示、可验证奖励、还是评测里的通过率？先把分区看清，再决定把团队资源押在哪条证据链上。\n\n局限也诚实：综述聚合的是当下文献，落地到你们的数据、权限与风控，仍要回到小规模试验与失败日志。地图不会替你走路，但能让你少在沼泽里兜圈。\n\n若只带走一句：先把推理与智能体的边界画清楚，再谈路线图，会少很多会议室里的平行对话。",
+  "article": "（正文为 HTML 版，见渲染结果）",
+  "content_html": "<p style=\"margin:0 0 1em 0;line-height:1.75;\"><em>你需要的不是更多名词，而是一套能对照文献与产品路线的坐标系。</em></p>\n<h2 style=\"margin:1.2em 0 0.5em;\">开篇</h2>\n<p style=\"margin:0 0 1em 0;line-height:1.75;\">这篇综述把「推理发生在推理时还是训练后」与「单体还是复合智能体」正交化，适合技术负责人做路线图对齐。</p>\n<p style=\"margin:0 0 1em 0;line-height:1.75;\">下面这篇稿子的「硬信息」来自 arXiv 元数据：英文标题、作者名单、官方摘要文字（略有截断）。中文部分是我们为公众号读者写的导读与衔接，不是论文译文全文；若你要写进研报或对外材料，请回到原文核对定义、符号与结论。</p>\n<h2 style=\"margin:1.2em 0 0.5em;\">论文卡片</h2>\n<p style=\"margin:0 0 0.5em 0;line-height:1.75;\"><strong>英文题名</strong>：A Survey of Frontiers in LLM Reasoning: Inference Scaling, Learning to Reason, and Agentic Systems</p>\n<p style=\"margin:0 0 0.5em 0;line-height:1.75;\"><strong>作者</strong>：Zixuan Ke、Fangkai Jiao、Yifei Ming、Xuan-Phi Nguyen、Austin Xu、Do Xuan Long、Minzhi Li、Chengwei Qin、Peifeng Wang、Silvio Savarese、Caiming Xiong、Shafiq Joty</p>\n<p style=\"margin:0 0 0.5em 0;line-height:1.75;\"><strong>arXiv 记录日期</strong>：2025-04-12T01:27:49Z</p>\n<p style=\"margin:0 0 1em 0;line-height:1.75;\"><strong>备注</strong>：72 pages, 6 figures. Accepted to TMLR, with Survey Certification award</p>\n<h2 style=\"margin:1.2em 0 0.5em;\">摘要摘录（英文）</h2>\n<blockquote style=\"margin:0 0 1em 0;padding:0.8em 1em;border-left:4px solid #2d6cdf;background:#f7f9fc;font-size:95%;line-height:1.65;\">Reasoning is a fundamental cognitive process that enables logical inference, problem-solving, and decision-making. With the rapid advancement of large language models (LLMs), reasoning has emerged as a key capability that distinguishes advanced AI systems from conventional models that empower chatbots. In this survey, we categorize existing methods along two orthogonal dimensions: (1) Regimes, which define the stage at which reasoning is achieved (either at inference time or through dedicated training); and (2) Architectures, which determine the components involved in the reasoning process, distinguishing between standalone LLMs and agentic compound systems that incorporate external tools, and multi-agent collaborations. Within each dimension, we analyze two key perspectives: (1) Input level, which focuses on techniques that construct high-quality prompts that the LLM condition on; and (…</blockquote>\n<p style=\"margin:0 0 1em 0;line-height:1.75;\">如果你不习惯读英文摘要，可以只做一件事：把摘要里反复出现的「动词」圈出来——是 scale、是 train、是 tool、还是 collaborate。它们往往对应团队真正要投入工程化的位置。</p>\n<h2 style=\"margin:1.2em 0 0.5em;\">读法建议</h2>\n<p style=\"margin:0 0 0.6em 0;line-height:1.75;\">第一遍只回答三个问题：这篇工作定义的「任务」是什么？它把「成功」量化成什么信号？它明确承认的局限是什么？</p>\n<p style=\"margin:0 0 0.6em 0;line-height:1.75;\">第二遍再把它映射到你的场景：数据权限、工具链、评测集、以及失败时能不能回滚。没有回滚设计的智能体，只是把事故从「人点错」迁移成「模型点错」。</p>\n<p style=\"margin:0 0 1em 0;line-height:1.75;\">第三遍再去追引用树：综述类论文尤其会把读者带到更大的一片文献海里；别在第一次阅读时就要求自己「全部读完」，先固定两三个最值得跟进的分支。</p>\n<h2 style=\"margin:1.2em 0 0.5em;\">局限与诚实</h2>\n<p style=\"margin:0 0 1em 0;line-height:1.75;\">公众号导读不能替代论文阅读：我们不复述公式、不替作者下结论，也不把单篇论文写成行业终局。若摘要与你关心的细节有出入，请以 PDF 为准。</p>\n<section style=\"margin-top:1.4em;\"><h2 style=\"margin:0 0 0.5em;\">参考资料</h2><ol style=\"line-height:1.7;\"><li>Ke et al., arXiv:2504.09037v4 (TMLR survey certification, comment on arXiv).</li><li>https://arxiv.org/abs/2504.09037（阅读原文请以 PDF 与页面版本为准）</li><li>封面图为占位图（picsum.photos 不同 seed），仅作版式区分；正式发文可替换为自有版权图。</li></ol></section>",
+  "source_url": "https://arxiv.org/abs/2504.09037",
   "references": [
-    "arXiv:2504.09037 — A Survey of Frontiers in LLM Reasoning: Inference Scaling, Learning to Reason, and Agentic Systems (2025)",
-    "整理自公开论文信息；细节请以原文与官方页面为准。"
+    "Ke et al., arXiv:2504.09037v4 (TMLR survey certification, comment on arXiv).",
+    "https://arxiv.org/abs/2504.09037"
   ],
   "wechat": {
     "open_comment": 1,
     "only_fans_can_comment": 0,
-    "thumb_media_id": ""
+    "thumb_media_id": "sG-p835ZNkREHwdlAZhpdvJm6hjszEzPYT0xsmBpFsTuKdkjkE4XBgX4lVfqOwpL"
   },
   "metadata": {
-    "generated_by": "write-skill-academic-story+cursor-agent",
+    "generated_by": "arxiv-enriched+batch-quality-script",
     "style": "academic-story",
-    "topic": "reasoning-agents-survey",
-    "generated_at": "2026-04-14T02:39:37.764Z"
+    "topic": "01-survey-reasoning-agentic",
+    "generated_at": "2026-04-14T02:46:04.986Z"
   }
 }
