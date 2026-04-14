@@ -226,6 +226,25 @@ npm run publish:from-skill -- --input examples/skill-output.sample.json
 - `.env` 里已填写 `WECHAT_APP_ID` 和 `WECHAT_APP_SECRET`
 - 如果不是 dry-run，新闻草稿通常还需要可用的 `thumb_media_id`
 
+### 5. 实战样例：论文解读稿
+
+这个 repo 现在还附带了一组更接近真实使用方式的样例：
+- `examples/skill-output.novel-memory-forgetting.json`
+- `examples/article-package.novel-memory-forgetting.json`
+
+这组样例展示了几件已经验证过的优化：
+- 开头先用具体场景把读者带进来，再自然引出 Agent 的发现与论文实验设计
+- 自动渲染出的段落带显式间距，微信正文里不会挤成一团
+- 可以在 `content_html` 中插入通过 `upload-media.mjs inline` 上传得到的正文图片 URL
+- 参考资料可以用显式 `[1]`、`[2]` 编号文本，避免微信对有序列表渲染不稳定
+
+如果你想复用这套方式，最稳的流程是：
+1. 先产出 `skill-output.json`
+2. 再用 bridge 生成 `article-package.json`
+3. 需要插图时，先跑 `node scripts/upload-media.mjs inline <image-file>`
+4. 把返回的 URL 写进 `content_html`
+5. 最后调用 `publish.mjs` 或 `publish:from-skill`
+
 ---
 
 ## 调试产物
