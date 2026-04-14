@@ -9,7 +9,8 @@
 | 资源 | 链接 |
 |------|------|
 | 本仓库 | [HashClawAI/wechat-mp-auto-publish](https://github.com/HashClawAI/wechat-mp-auto-publish) |
-| 默认写作 Skill | [HashClawAI/write-skill-academic-story](https://github.com/HashClawAI/write-skill-academic-story) |
+| 配套 Cursor Skill（本机） | `~/.cursor/skills/wechat-mp-auto-publish/`（`SKILL.md`、`pipeline.md`、`reference.md`） |
+| 默认写作 Skill | [HashClawAI/write-skill-academic-story](https://github.com/HashClawAI/write-skill-academic-story) — 定义在 **`skills/article-writing-academic-story/SKILL.md`**；可将该目录放到 `~/.cursor/skills/article-writing-academic-story/` 或通过 raw URL 拉取 |
 
 ---
 
@@ -129,6 +130,14 @@ WECHAT_ARTICLE_JSON_PATH=examples/article-package.generated.json node scripts/pu
 → last-rendered.html
 → publish.mjs
 → 微信草稿箱
+```
+
+**本机 Skill 目录示例：**
+
+```text
+~/.cursor/skills/wechat-mp-auto-publish/              # 发文编排（个人 skill）
+~/.cursor/skills/article-writing-academic-story/    # 写作：对应 GitHub 仓库内 skills/article-writing-academic-story/
+/path/to/wechat-mp-auto-publish/                     # 本仓库（脚本、.env、examples）
 ```
 
 ---
