@@ -7,11 +7,18 @@ function escapeHtml(s = "") {
 }
 
 function toParagraphs(text) {
-  return String(text || "")
+  const blocks = String(text || "")
     .split(/\n{2,}/)
     .map((block) => block.trim())
-    .filter(Boolean)
-    .map((block) => `<p>${escapeHtml(block).replace(/\n/g, "<br />")}</p>`)
+    .filter(Boolean);
+
+  return blocks
+    .map((block, index) => {
+      const style = index === blocks.length - 1
+        ? "margin: 0; line-height: 1.75;"
+        : "margin: 0 0 1em 0; line-height: 1.75;";
+      return `<p style="${style}">${escapeHtml(block).replace(/\n/g, "<br />")}</p>`;
+    })
     .join("\n");
 }
 
